@@ -1,8 +1,13 @@
 import React from 'react';
-import welcomeIcon from './assets/welcome.jpg';
+import './App.css';
+import { Header } from './shared/Header';
+import { Bills } from './shared/Bills';
 
 const App: React.FunctionComponent = () => (
-  <img src={welcomeIcon} alt="Welcome!"/>
+  <div className="App">
+    <Header />
+    <Bills />
+  </div>
 );
 
 export default App;
