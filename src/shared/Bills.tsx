@@ -79,10 +79,14 @@ export const Bills: React.FC = () => {
       <div
         style={{
           background: 'white',
+          width: 460,
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
-          alignContent: 'space-around',
+          margin: 'auto',
+          marginTop: 0,
+          padding: 20,
+          paddingBottom: 0,
+          borderRadius: 10,
         }}
       >
         {loading && <div>Loading...</div>}
@@ -92,14 +96,14 @@ export const Bills: React.FC = () => {
             return (
               <div
                 key={merchant.id}
-                style={{ border: 'dashed 1px gray', marginTop: 20, borderRadius: 10 }}
+                style={{ border: 'dashed 1px gray', marginBottom: 20, borderRadius: 10 }}
               >
                 <div
                   style={{
                     display: 'flex',
                     margin: '10 auto',
                     padding: 10,
-                    width: 520,
+                    width: 440,
                     textAlign: 'left',
                     color: 'black',
                   }}
