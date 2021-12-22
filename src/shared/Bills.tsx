@@ -1,13 +1,17 @@
+import './Bills.css';
+import { useState } from 'react';
 import { useFetch } from 'use-http';
 import { APIConstants } from './constants';
 import { Img } from 'react-image';
 import cleoCoin from '../assets/cleo_coin.jpg';
 import loaderGif from '../assets/loader.gif';
-import { useState } from 'react';
+import showMoreIcon from '../assets/show-more.png';
+import showLessIcon from '../assets/show-less.png';
+import { format } from 'date-fns';
 
 type Transaction = {
   amount: number;
-  date: Date;
+  date: string;
   id: number;
 };
 
@@ -19,6 +23,9 @@ type Merchant = {
   name: string;
   transactions: Array<Transaction>;
 };
+
+// use Axios instead of Fetch?
+// might be better supported
 
 export const Bills: React.FC = () => {
   const MERCHANTS_URL = `${APIConstants.base}/merchants`;
@@ -56,32 +63,118 @@ export const Bills: React.FC = () => {
     }
   };
 
+  // if viewBills add class selectedTab
+
   return (
     <div>
-      <button onClick={handleClickBills}>Bills</button>
-      <button onClick={handleClickPotentialBills}>Potential Bills</button>
-      {loading && <div>Loading...</div>}
-      {data
-        ?.filter((merchant: Merchant) => (viewBills ? merchant.isBill : !merchant.isBill))
-        .map((merchant: Merchant) => {
-          return (
-            <div key={merchant.id} style={{ marginTop: 30, width: 500, textAlign: 'left' }}>
-              <Img
-                src={[merchant.iconUrl, cleoCoin]}
-                loader={<Img src={loaderGif} style={{ width: 50, height: 50, float: 'left' }} />}
-                alt={`${merchant.name} logo`}
-                style={{ width: 50, height: 50, float: 'left' }}
-              />
-              <h3>{merchant.name}</h3>
-              <p>{merchant.transactions.length} transactions</p>
-              {merchant.isBill ? (
-                <button onClick={() => handleClickRemoveBill(merchant.id)}>Remove bill</button>
-              ) : (
-                <button onClick={() => handleClickAddAsBill(merchant.id)}>Add as bill</button>
-              )}
-            </div>
-          );
-        })}
+      <button className={`tab ${viewBills ? 'selectedTab' : ''}`} onClick={handleClickBills}>
+        Bills
+      </button>
+      <button
+        className={`tab ${!viewBills ? 'selectedTab' : ''}`}
+        onClick={handleClickPotentialBills}
+      >
+        Potential Bills
+      </button>
+      <div
+        style={{
+          background: 'white',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          alignContent: 'space-around',
+        }}
+      >
+        {loading && <div>Loading...</div>}
+        {data
+          ?.filter((merchant: Merchant) => (viewBills ? merchant.isBill : !merchant.isBill))
+          .map((merchant: Merchant) => {
+            return (
+              <div
+                key={merchant.id}
+                style={{ border: 'dashed 1px gray', marginTop: 20, borderRadius: 10 }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    margin: '10 auto',
+                    padding: 10,
+                    width: 520,
+                    textAlign: 'left',
+                    color: 'black',
+                  }}
+                >
+                  <Img
+                    src={showLessIcon}
+                    alt={`Hide transactions for ${merchant.name}`}
+                    style={{ width: 20, height: 20, margin: 10, alignSelf: 'center' }}
+                  />
+                  <Img
+                    src={[merchant.iconUrl, cleoCoin]}
+                    loader={<Img src={loaderGif} className="merchantLogo" />}
+                    alt={`${merchant.name} logo`}
+                    className="merchantLogo"
+                  />
+                  <div
+                    style={{
+                      width: 230,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      padding: 0,
+                      margin: 0,
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontSize: '1rem',
+                        fontWeight: 'bold',
+                        padding: 0,
+                        margin: 0,
+                      }}
+                    >
+                      {merchant.name}
+                    </p>
+                    <p style={{ padding: 0, margin: 0 }}>
+                      {merchant.transactions.length} transactions
+                    </p>
+                  </div>
+
+                  {merchant.isBill ? (
+                    <button
+                      className="merchantButton"
+                      onClick={() => handleClickRemoveBill(merchant.id)}
+                    >
+                      Remove bill
+                    </button>
+                  ) : (
+                    <button
+                      className="merchantButton"
+                      onClick={() => handleClickAddAsBill(merchant.id)}
+                    >
+                      Add as bill
+                    </button>
+                  )}
+                </div>
+                <div style={{ color: 'black', display: 'flex', flexDirection: 'column' }}>
+                  {merchant.transactions.map((transaction) => (
+                    <div key={transaction.id}>
+                      <p>
+                        {format(Date.parse(transaction.date), 'd MMM y')}{' '}
+                        <span>
+                          {new Intl.NumberFormat('en-GB', {
+                            style: 'currency',
+                            currency: 'GBP',
+                          }).format(transaction.amount)}
+                        </span>
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+      </div>
     </div>
   );
 };
