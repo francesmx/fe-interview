@@ -4122,6 +4122,11 @@ data-urls@^2.0.0:
     whatwg-mimetype "^2.3.0"
     whatwg-url "^8.0.0"
 
+date-fns@^2.27.0:
+  version "2.27.0"
+  resolved "https://artifactory.skyscannertools.net/artifactory/api/npm/npm/date-fns/-/date-fns-2.27.0.tgz#e1ff3c3ddbbab8a2eaadbb6106be2929a5a2d92b"
+  integrity sha1-4f88Pdu6uKLqrbthBr4pKaWi2Ss=
+
 debug@*, debug@4, debug@^4.0.1, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1:
   version "4.3.3"
   resolved "https://artifactory.skyscannertools.net/artifactory/api/npm/npm/debug/-/debug-4.3.3.tgz#04266e0b70a98d4462e6e288e38259213332b664"
