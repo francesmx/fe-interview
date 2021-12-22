@@ -36,7 +36,7 @@
     },
     {
       "categoryId": 2,
-      "iconUrl": "https://pbs.twimg.com/profile_images/1280004967726751744/1YFw1Bdu_bigger.jpg",
+      "iconUrl": "https://i.imgur.com/cIABrGH.png",
       "id": "5a5caa8efe33900100fd8ed6",
       "isBill": true,
       "name": "Sky TV",
@@ -70,7 +70,7 @@
     },
     {
       "categoryId": 3,
-      "iconUrl": "https://pbs.twimg.com/profile_images/1280422740638470147/aBXwvFOs_bigger.jpg",
+      "iconUrl": "https://i.imgur.com/HqkjARG.png",
       "id": "5a5caad4fe33900100fd8ed7",
       "isBill": true,
       "name": "HSBC Mortgage",
@@ -206,7 +206,7 @@
     },
     {
       "categoryId": 4,
-      "iconUrl": "https://pbs.twimg.com/profile_images/1283078790076403713/cNZHuaOx_bigger.jpg",
+      "iconUrl": "https://i.imgur.com/KEckuDq.png",
       "id": "5a5cabd4fe33900100fd8edb",
       "isBill": true,
       "name": "TFL",
@@ -274,7 +274,7 @@
     },
     {
       "categoryId": 4,
-      "iconUrl": "https://pbs.twimg.com/profile_images/1145605208610889729/C7EH0Qyi_bigger.png",
+      "iconUrl": "https://i.imgur.com/Z2KFwdP.png",
       "id": "328card4fe33900100fd8ail",
       "isBill": false,
       "name": "Uber",
