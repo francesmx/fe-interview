@@ -8,12 +8,14 @@
   border: solid 1px black;
   border-radius: 8px 8px 0 0;
   text-transform: uppercase;
+  cursor: url('../assets/eyes-cursor.svg') 5 12, auto;
 }
 
 .selectedTab {
   background-color: white;
   border-bottom: solid 1px white;
   font-weight: bold;
+  cursor: url('../assets/pizza-cursor.svg') 2 2, auto;
 }
 
 .merchantLogo {
@@ -34,4 +36,5 @@
   height: 40px;
   margin: 10px;
   align-self: center;
+  cursor: url('../assets/eyes-cursor.svg') 5 12, auto;
 }
