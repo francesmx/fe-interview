@@ -1,11 +1,22 @@
+@keyframes tentacle {
+  from {
+    background-position: -500px 100px;
+  }
+  to {
+    background-position: -100px 100px;
+  }
+}
+
 .App {
   text-align: center;
   min-height: 100vh;
+  color: white;
+  -webkit-font-smoothing: antialiased;
   background-color: #21248d;
   background-image: url('./assets/tentacle-left.png');
   background-repeat: no-repeat;
   background-size: auto;
-  background-position: 0 10%;
-  color: white;
-  -webkit-font-smoothing: antialiased;
+  background-position: -100px 100px;
+  animation-name: tentacle;
+  animation-duration: 4s;
 }
