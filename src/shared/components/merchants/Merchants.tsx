@@ -63,7 +63,7 @@ export const Merchants: React.FC = () => {
                   <Img
                     src={showLessIcon}
                     alt={`Hide transactions for ${merchant.name}`}
-                    style={{ width: 20, height: 20, margin: 10, alignSelf: 'center' }}
+                    className="showLessIcon"
                   />
                   <Img
                     src={[merchant.iconUrl, cleoCoin]}
@@ -71,16 +71,7 @@ export const Merchants: React.FC = () => {
                     alt={`${merchant.name} logo`}
                     className="merchantLogo"
                   />
-                  <div
-                    style={{
-                      width: 230,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      padding: 0,
-                      margin: 0,
-                      justifyContent: 'center',
-                    }}
-                  >
+                  <div className="merchantNameAndTransactionsContainer">
                     <p className="merchantName">{merchant.name}</p>
                     <p style={{ padding: 0, margin: 0 }}>
                       {merchant.transactions.length} transactions
@@ -101,7 +92,7 @@ export const Merchants: React.FC = () => {
                   )}
                 </div>
                 <div className="transactionsContainer">
-                  <table style={{ marginLeft: 128, marginRight: 20, marginBottom: 20 }}>
+                  <table style={{ marginLeft: 127, marginRight: 20, marginBottom: 20 }}>
                     <thead>
                       <tr>
                         <th style={{ textAlign: 'left' }}>Date</th>
