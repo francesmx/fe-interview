@@ -22,46 +22,29 @@ export const Merchants: React.FC = () => {
     }
   }, [merchantsStatus, dispatch]);
 
-  const handleClickBills = () => {
-    setViewBills(true);
-  };
-
-  const handleClickPotentialBills = () => {
-    setViewBills(false);
-  };
-
-  const handleClickRemoveBill = async (merchantId: string) => {
+  const handleRemoveBill = async (merchantId: string) => {
     dispatch(billRemoved({ id: merchantId }));
   };
 
-  const handleClickAddAsBill = async (merchantId: string) => {
+  const handleAddAsBill = async (merchantId: string) => {
     dispatch(billAdded({ id: merchantId }));
   };
 
   return (
     <div>
-      <button className={`tab ${viewBills ? 'selectedTab' : ''}`} onClick={handleClickBills}>
+      <button
+        className={`tab ${viewBills ? 'selectedTab' : ''}`}
+        onClick={() => setViewBills(true)}
+      >
         Bills
       </button>
       <button
         className={`tab ${!viewBills ? 'selectedTab' : ''}`}
-        onClick={handleClickPotentialBills}
+        onClick={() => setViewBills(false)}
       >
         Potential Bills
       </button>
-      <div
-        style={{
-          background: 'white',
-          width: 460,
-          display: 'flex',
-          flexDirection: 'column',
-          margin: 'auto',
-          marginTop: 0,
-          padding: 20,
-          paddingBottom: 0,
-          borderRadius: 10,
-        }}
-      >
+      <div className="container">
         {merchantsStatus === 'loading' && <div className="emptyState">Loading...</div>}
         {merchantsStatus === 'failed' && (
           <div className="emptyState">
@@ -76,16 +59,7 @@ export const Merchants: React.FC = () => {
                 key={merchant.id}
                 style={{ border: 'dashed 1px gray', marginBottom: 20, borderRadius: 10 }}
               >
-                <div
-                  style={{
-                    display: 'flex',
-                    margin: '10 auto',
-                    padding: 10,
-                    width: 440,
-                    textAlign: 'left',
-                    color: 'black',
-                  }}
-                >
+                <div className="merchantContainer">
                   <Img
                     src={showLessIcon}
                     alt={`Hide transactions for ${merchant.name}`}
@@ -107,16 +81,7 @@ export const Merchants: React.FC = () => {
                       justifyContent: 'center',
                     }}
                   >
-                    <p
-                      style={{
-                        fontSize: '1rem',
-                        fontWeight: 'bold',
-                        padding: 0,
-                        margin: 0,
-                      }}
-                    >
-                      {merchant.name}
-                    </p>
+                    <p className="merchantName">{merchant.name}</p>
                     <p style={{ padding: 0, margin: 0 }}>
                       {merchant.transactions.length} transactions
                     </p>
@@ -125,38 +90,45 @@ export const Merchants: React.FC = () => {
                   {merchant.isBill ? (
                     <button
                       className="merchantButton"
-                      onClick={() => handleClickRemoveBill(merchant.id)}
+                      onClick={() => handleRemoveBill(merchant.id)}
                     >
                       Remove bill
                     </button>
                   ) : (
-                    <button
-                      className="merchantButton"
-                      onClick={() => handleClickAddAsBill(merchant.id)}
-                    >
+                    <button className="merchantButton" onClick={() => handleAddAsBill(merchant.id)}>
                       Add as bill
                     </button>
                   )}
                 </div>
-                <div style={{ color: 'black', display: 'flex', flexDirection: 'column' }}>
-                  {/* Spread the transactions array into a new copy to enable sorting */}
-                  {[...merchant.transactions]
-                    .sort((a: Transaction, b: Transaction) => {
-                      return +new Date(b.date) - +new Date(a.date);
-                    })
-                    .map((transaction) => (
-                      <div key={transaction.id}>
-                        <p>
-                          {format(Date.parse(transaction.date), 'd MMM y')}{' '}
-                          <span>
-                            {new Intl.NumberFormat('en-GB', {
-                              style: 'currency',
-                              currency: 'GBP',
-                            }).format(transaction.amount)}
-                          </span>
-                        </p>
-                      </div>
-                    ))}
+                <div className="transactionsContainer">
+                  <table style={{ marginLeft: 128, marginRight: 20, marginBottom: 20 }}>
+                    <thead>
+                      <tr>
+                        <th style={{ textAlign: 'left' }}>Date</th>
+                        <th style={{ textAlign: 'right' }}>Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {/* Spread the transactions array into a new copy to enable sorting */}
+                      {[...merchant.transactions]
+                        .sort((a: Transaction, b: Transaction) => {
+                          return +new Date(b.date) - +new Date(a.date);
+                        })
+                        .map((transaction) => (
+                          <tr key={transaction.id}>
+                            <td style={{ textAlign: 'left' }}>
+                              {format(Date.parse(transaction.date), 'd MMM y')}
+                            </td>
+                            <td style={{ textAlign: 'right' }}>
+                              {new Intl.NumberFormat('en-GB', {
+                                style: 'currency',
+                                currency: 'GBP',
+                              }).format(transaction.amount)}
+                            </td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             );
