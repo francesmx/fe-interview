@@ -1,13 +1,13 @@
-import './Bills.css';
-import { useState } from 'react';
-import { useFetch } from 'use-http';
-import { APIConstants } from './constants';
+import './Merchants.css';
+import { useEffect, useState } from 'react';
+import { APIConstants } from '../constants';
 import { Img } from 'react-image';
-import cleoCoin from '../assets/cleo_coin.jpg';
-import loaderGif from '../assets/loader.gif';
-import showMoreIcon from '../assets/show-more.png';
-import showLessIcon from '../assets/show-less.png';
+import cleoCoin from '../../assets/cleo_coin.jpg';
+import loaderGif from '../../assets/loader.gif';
+// import showMoreIcon from '../assets/show-more.png';
+import showLessIcon from '../../assets/show-less.png';
 import { format } from 'date-fns';
+import axios from 'axios';
 
 type Transaction = {
   amount: number;
@@ -24,15 +24,23 @@ type Merchant = {
   transactions: Array<Transaction>;
 };
 
-// use Axios instead of Fetch?
-// might be better supported
-
-export const Bills: React.FC = () => {
-  const MERCHANTS_URL = `${APIConstants.base}/merchants`;
-  const { data, loading } = useFetch(MERCHANTS_URL, []);
-  const [request, response] = useFetch(MERCHANTS_URL);
-
+export const Merchants: React.FC = () => {
+  const [merchantData, setMerchantData] = useState([]);
   const [viewBills, setViewBills] = useState(true);
+
+  const getMerchants = async () => {
+    try {
+      const response = await axios.get(`${APIConstants.base}/merchants`);
+      const { data: axiosData } = await response;
+      setMerchantData(axiosData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getMerchants();
+  }, []);
 
   const handleClickBills = () => {
     setViewBills(true);
@@ -42,28 +50,27 @@ export const Bills: React.FC = () => {
     setViewBills(false);
   };
 
-  // The patch request is working.
-  // However the following request.get isn't getting the new data
-  // We also have data in two objects (data and response.data)
-  // But we don't want the data object to be mutable
-  // Can re-look at use-http docs to see how they manage handling onMount and onClick events together
-  // Should probably do that AND considering using Redux at this point to manage state
-
   const handleClickRemoveBill = async (merchantId: string) => {
-    await request.patch(`/${merchantId}`, { isBill: false });
-    if (response.ok) {
-      await request.get();
+    try {
+      await axios.patch(`${APIConstants.base}/merchants/${merchantId}`, {
+        isBill: false,
+      });
+      getMerchants();
+    } catch (error) {
+      console.error(error);
     }
   };
 
   const handleClickAddAsBill = async (merchantId: string) => {
-    await request.patch(`/${merchantId}`, { isBill: true });
-    if (response.ok) {
-      await request.get();
+    try {
+      await axios.patch(`${APIConstants.base}/merchants/${merchantId}`, {
+        isBill: true,
+      });
+      getMerchants();
+    } catch (error) {
+      console.error(error);
     }
   };
-
-  // if viewBills add class selectedTab
 
   return (
     <div>
@@ -89,8 +96,10 @@ export const Bills: React.FC = () => {
           borderRadius: 10,
         }}
       >
-        {loading && <div>Loading...</div>}
-        {data
+        {/*  TO DO - Handle loading state
+        Maybe show some ghostlike placeholder imagery? */}
+        {/* {loading && <div>Loading...</div>} */}
+        {merchantData
           ?.filter((merchant: Merchant) => (viewBills ? merchant.isBill : !merchant.isBill))
           .map((merchant: Merchant) => {
             return (
