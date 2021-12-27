@@ -1,46 +1,26 @@
 import './Merchants.css';
 import { useEffect, useState } from 'react';
-import { APIConstants } from '../constants';
 import { Img } from 'react-image';
-import cleoCoin from '../../assets/cleo_coin.jpg';
-import loaderGif from '../../assets/loader.gif';
-// import showMoreIcon from '../assets/show-more.png';
-import showLessIcon from '../../assets/show-less.png';
+import cleoCoin from '../../../assets/cleo_coin.jpg';
+import loaderGif from '../../../assets/loader.gif';
+// import showMoreIcon from '../../../assets/show-more.png';
+import showLessIcon from '../../../assets/show-less.png';
 import { format } from 'date-fns';
-import axios from 'axios';
-
-type Transaction = {
-  amount: number;
-  date: string;
-  id: number;
-};
-
-type Merchant = {
-  categoryID: number;
-  iconUrl: string;
-  id: string;
-  isBill: boolean;
-  name: string;
-  transactions: Array<Transaction>;
-};
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { fetchMerchants, billRemoved, billAdded, Merchant } from './merchantsSlice';
 
 export const Merchants: React.FC = () => {
-  const [merchantData, setMerchantData] = useState([]);
+  const merchants = useAppSelector((state) => state.merchants.merchants);
+  const merchantsStatus = useAppSelector((state) => state.merchants.status);
+  const error = useAppSelector((state) => state.merchants.error);
+  const dispatch = useAppDispatch();
   const [viewBills, setViewBills] = useState(true);
 
-  const getMerchants = async () => {
-    try {
-      const response = await axios.get(`${APIConstants.base}/merchants`);
-      const { data: axiosData } = await response;
-      setMerchantData(axiosData);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   useEffect(() => {
-    getMerchants();
-  }, []);
+    if (merchantsStatus === 'idle') {
+      dispatch(fetchMerchants());
+    }
+  }, [merchantsStatus, dispatch]);
 
   const handleClickBills = () => {
     setViewBills(true);
@@ -51,25 +31,11 @@ export const Merchants: React.FC = () => {
   };
 
   const handleClickRemoveBill = async (merchantId: string) => {
-    try {
-      await axios.patch(`${APIConstants.base}/merchants/${merchantId}`, {
-        isBill: false,
-      });
-      getMerchants();
-    } catch (error) {
-      console.error(error);
-    }
+    dispatch(billRemoved({ id: merchantId }));
   };
 
   const handleClickAddAsBill = async (merchantId: string) => {
-    try {
-      await axios.patch(`${APIConstants.base}/merchants/${merchantId}`, {
-        isBill: true,
-      });
-      getMerchants();
-    } catch (error) {
-      console.error(error);
-    }
+    dispatch(billAdded({ id: merchantId }));
   };
 
   return (
@@ -96,10 +62,13 @@ export const Merchants: React.FC = () => {
           borderRadius: 10,
         }}
       >
-        {/*  TO DO - Handle loading state
-        Maybe show some ghostlike placeholder imagery? */}
-        {/* {loading && <div>Loading...</div>} */}
-        {merchantData
+        {merchantsStatus === 'loading' && <div className="emptyState">Loading...</div>}
+        {merchantsStatus === 'failed' && (
+          <div className="emptyState">
+            Something went wrong when trying to retrieve merchants.<div>{error}</div>
+          </div>
+        )}
+        {merchants
           ?.filter((merchant: Merchant) => (viewBills ? merchant.isBill : !merchant.isBill))
           .map((merchant: Merchant) => {
             return (
