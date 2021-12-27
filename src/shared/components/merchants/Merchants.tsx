@@ -7,7 +7,7 @@ import loaderGif from '../../../assets/loader.gif';
 import showLessIcon from '../../../assets/show-less.png';
 import { format } from 'date-fns';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { fetchMerchants, billRemoved, billAdded, Merchant } from './merchantsSlice';
+import { fetchMerchants, billRemoved, billAdded, Merchant, Transaction } from './merchantsSlice';
 
 export const Merchants: React.FC = () => {
   const merchants = useAppSelector((state) => state.merchants.merchants);
@@ -139,19 +139,24 @@ export const Merchants: React.FC = () => {
                   )}
                 </div>
                 <div style={{ color: 'black', display: 'flex', flexDirection: 'column' }}>
-                  {merchant.transactions.map((transaction) => (
-                    <div key={transaction.id}>
-                      <p>
-                        {format(Date.parse(transaction.date), 'd MMM y')}{' '}
-                        <span>
-                          {new Intl.NumberFormat('en-GB', {
-                            style: 'currency',
-                            currency: 'GBP',
-                          }).format(transaction.amount)}
-                        </span>
-                      </p>
-                    </div>
-                  ))}
+                  {/* Spread the transactions array into a new copy to enable sorting */}
+                  {[...merchant.transactions]
+                    .sort((a: Transaction, b: Transaction) => {
+                      return +new Date(b.date) - +new Date(a.date);
+                    })
+                    .map((transaction) => (
+                      <div key={transaction.id}>
+                        <p>
+                          {format(Date.parse(transaction.date), 'd MMM y')}{' '}
+                          <span>
+                            {new Intl.NumberFormat('en-GB', {
+                              style: 'currency',
+                              currency: 'GBP',
+                            }).format(transaction.amount)}
+                          </span>
+                        </p>
+                      </div>
+                    ))}
                 </div>
               </div>
             );

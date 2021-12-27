@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { APIConstants } from '../../constants';
 
-type Transaction = {
+export type Transaction = {
   amount: number;
   date: string;
   id: number;
