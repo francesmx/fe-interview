@@ -7,7 +7,7 @@ import showLessIcon from '../../../assets/show-less-icon.svg';
 import cleoCoin from '../../../assets/cleo_coin.jpg';
 import loaderGif from '../../../assets/loader.gif';
 import { useAppDispatch } from '../../hooks/hooks';
-import { addBill, removeBill, toggleShowTransactions } from '../merchantsList/merchantsSlice';
+import { addBill, removeBill } from '../merchantsList/merchantsSlice';
 import { MerchantType, Transaction } from '../../types/sharedTypes';
 
 interface MerchantProps {
@@ -16,8 +16,15 @@ interface MerchantProps {
 
 export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
   const [updateMerchantStatus, setUpdateMerchantStatus] = useState('idle');
+  const [showTransactions, setShowTransactions] = useState(false);
   const dispatch = useAppDispatch();
+
+  const { id: merchantId, name: merchantName, iconUrl, isBill, transactions } = merchant;
   const canMakeRequest = updateMerchantStatus === 'idle';
+
+  const handleToggleTransactions = () => {
+    setShowTransactions(!showTransactions);
+  };
 
   const handleUpdateMerchant = async (merchantId: string, action: 'add' | 'remove') => {
     try {
@@ -32,46 +39,42 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
     }
   };
 
-  const handleToggleTransactions = (merchantId: string) => {
-    dispatch(toggleShowTransactions({ id: merchantId }));
-  };
-
   return (
     <div style={{ border: 'dashed 1px gray', marginBottom: 20, borderRadius: 10 }}>
-      <div className="merchantContainer" onClick={() => handleToggleTransactions(merchant.id)}>
+      <div className="merchantContainer" onClick={() => handleToggleTransactions()}>
         {/* Show/hide icon */}
-        {!merchant.showTransactions ? (
+        {!showTransactions ? (
           <Img
             src={showMoreIcon}
-            alt={`Show transactions for ${merchant.name}`}
+            alt={`Show transactions for ${merchantName}`}
             className="showTransactionsToggleIcon"
           />
         ) : (
           <Img
             src={showLessIcon}
-            alt={`Hide transactions for ${merchant.name}`}
+            alt={`Hide transactions for ${merchantName}`}
             className="showTransactionsToggleIcon"
           />
         )}
         {/* Merchant logo */}
         <Img
-          src={[merchant.iconUrl, cleoCoin]}
+          src={[iconUrl, cleoCoin]}
           loader={<Img src={loaderGif} className="merchantLogo" />}
-          alt={`${merchant.name} logo`}
+          alt={`${merchantName} logo`}
           className="merchantLogo"
         />
         {/* Merchant name, and number of transactions */}
         <div className="merchantNameAndTransactionsContainer">
-          <p className="merchantName">{merchant.name}</p>
+          <p className="merchantName">{merchantName}</p>
           <p style={{ padding: 0, margin: 0, fontSize: '1rem' }}>
-            {merchant.transactions.length} transactions
+            {transactions.length} transactions
           </p>
         </div>
         {/* Button to add/remove as bill */}
-        {merchant.isBill ? (
+        {isBill ? (
           <button
             className="merchantButton"
-            onClick={() => handleUpdateMerchant(merchant.id, 'remove')}
+            onClick={() => handleUpdateMerchant(merchantId, 'remove')}
             disabled={!canMakeRequest}
           >
             Remove bill
@@ -79,7 +82,7 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
         ) : (
           <button
             className="merchantButton"
-            onClick={() => handleUpdateMerchant(merchant.id, 'add')}
+            onClick={() => handleUpdateMerchant(merchantId, 'add')}
             disabled={!canMakeRequest}
           >
             Add as bill
@@ -87,7 +90,7 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
         )}
       </div>
       {/* List of transactions */}
-      {merchant.showTransactions && (
+      {showTransactions && (
         <div className="transactionsContainer">
           <table className="transactionsTable">
             <thead>

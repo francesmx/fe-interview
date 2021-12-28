@@ -11,5 +11,4 @@ export type MerchantType = {
   isBill: boolean;
   name: string;
   transactions: Array<Transaction>;
-  showTransactions: Boolean | undefined;
 };

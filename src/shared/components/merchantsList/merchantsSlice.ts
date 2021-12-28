@@ -15,26 +15,10 @@ const initialState: MerchantsState = {
   error: null,
 };
 
-type MerchantIdActionPayload = {
-  id: string;
-};
-
 export const merchantsSlice = createSlice({
   name: 'merchants',
   initialState,
-  reducers: {
-    toggleShowTransactions(state, action: PayloadAction<MerchantIdActionPayload>) {
-      const { id } = action.payload;
-      const existingMerchant = state.merchants.find((merchant) => merchant.id === id);
-      if (existingMerchant) {
-        /*  if showTransactions is set, toggle it; if undefined, set to true  
-            (showTransactions is internal only; it's not stored in the db)  */
-        existingMerchant.showTransactions
-          ? (existingMerchant.showTransactions = !existingMerchant.showTransactions)
-          : (existingMerchant.showTransactions = true);
-      }
-    },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       // fetchMerchants API call
@@ -114,7 +98,5 @@ export const addBill = createAsyncThunk('merchants/addBill', async (merchantId: 
     console.error(error);
   }
 });
-
-export const { toggleShowTransactions } = merchantsSlice.actions;
 
 export default merchantsSlice.reducer;
