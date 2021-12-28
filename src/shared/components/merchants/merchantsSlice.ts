@@ -38,24 +38,11 @@ export const merchantsSlice = createSlice({
   name: 'merchants',
   initialState,
   reducers: {
-    billAdded(state, action: PayloadAction<MerchantIdActionPayload>) {
-      const { id } = action.payload;
-      const existingMerchant = state.merchants.find((merchant) => merchant.id === id);
-      if (existingMerchant) {
-        existingMerchant.isBill = true;
-      }
-    },
-    billRemoved(state, action: PayloadAction<MerchantIdActionPayload>) {
-      const { id } = action.payload;
-      const existingMerchant = state.merchants.find((merchant) => merchant.id === id);
-      if (existingMerchant) {
-        existingMerchant.isBill = false;
-      }
-    },
     toggleShowTransactions(state, action: PayloadAction<MerchantIdActionPayload>) {
       const { id } = action.payload;
       const existingMerchant = state.merchants.find((merchant) => merchant.id === id);
       if (existingMerchant) {
+        // showTransactions is internal only; it's not stored in the db
         // if showTransactions is set, toggle it; if undefined, set to true
         existingMerchant.showTransactions
           ? (existingMerchant.showTransactions = !existingMerchant.showTransactions)
@@ -65,15 +52,47 @@ export const merchantsSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchMerchants.pending, (state, action) => {
+      .addCase(fetchMerchants.pending, (state) => {
         state.status = 'loading';
       })
       .addCase(fetchMerchants.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        // Add any fetched merchants to the array
+        // add fetched merchants to array
         state.merchants = state.merchants.concat(action.payload);
       })
       .addCase(fetchMerchants.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(removeBill.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(removeBill.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        // update merchant
+        const { id } = action.payload;
+        const existingMerchant = state.merchants.find((merchant) => merchant.id === id);
+        if (existingMerchant) {
+          existingMerchant.isBill = false;
+        }
+      })
+      .addCase(removeBill.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(addBill.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(addBill.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        // update merchant
+        const { id } = action.payload;
+        const existingMerchant = state.merchants.find((merchant) => merchant.id === id);
+        if (existingMerchant) {
+          existingMerchant.isBill = true;
+        }
+      })
+      .addCase(addBill.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       });
@@ -100,7 +119,7 @@ export const removeBill = createAsyncThunk('merchants/removeBill', async (mercha
   }
 });
 
-export const addBill = createAsyncThunk('merchants/removeBill', async (merchantId: string) => {
+export const addBill = createAsyncThunk('merchants/addBill', async (merchantId: string) => {
   try {
     const response = await axios.patch(`${APIConstants.base}/merchants/${merchantId}`, {
       isBill: true,
@@ -111,6 +130,6 @@ export const addBill = createAsyncThunk('merchants/removeBill', async (merchantI
   }
 });
 
-export const { billAdded, billRemoved, toggleShowTransactions } = merchantsSlice.actions;
+export const { toggleShowTransactions } = merchantsSlice.actions;
 
 export default merchantsSlice.reducer;

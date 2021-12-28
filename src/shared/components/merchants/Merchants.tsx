@@ -9,8 +9,8 @@ import { format } from 'date-fns';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
   fetchMerchants,
-  billRemoved,
-  billAdded,
+  removeBill,
+  addBill,
   toggleShowTransactions,
   Merchant,
   Transaction,
@@ -30,11 +30,11 @@ export const Merchants: React.FC = () => {
   }, [merchantsStatus, dispatch]);
 
   const handleRemoveBill = async (merchantId: string) => {
-    dispatch(billRemoved({ id: merchantId }));
+    dispatch(removeBill(merchantId));
   };
 
   const handleAddAsBill = async (merchantId: string) => {
-    dispatch(billAdded({ id: merchantId }));
+    dispatch(addBill(merchantId));
   };
 
   const handleToggleTransactions = (merchantId: string) => {
@@ -70,7 +70,7 @@ export const Merchants: React.FC = () => {
                 key={merchant.id}
                 style={{ border: 'dashed 1px gray', marginBottom: 20, borderRadius: 10 }}
               >
-                <button
+                <div
                   className="merchantContainer"
                   onClick={() => handleToggleTransactions(merchant.id)}
                 >
@@ -113,7 +113,7 @@ export const Merchants: React.FC = () => {
                       Add as bill
                     </button>
                   )}
-                </button>
+                </div>
                 {merchant.showTransactions && (
                   <div className="transactionsContainer">
                     <table className="transactionsTable">
