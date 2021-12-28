@@ -40,20 +40,21 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
   };
 
   return (
-    <div style={{ border: 'dashed 1px gray', marginBottom: 20, borderRadius: 10 }}>
+    <div className="merchantAndTransactionsContainer">
       <div className="merchantContainer" onClick={() => handleToggleTransactions()}>
         {/* Show/hide icon */}
-        {!showTransactions ? (
-          <Img
-            src={showMoreIcon}
-            alt={`Show transactions for ${merchantName}`}
-            className="showTransactionsToggleIcon"
-          />
-        ) : (
+        {showTransactions && (
           <Img
             src={showLessIcon}
             alt={`Hide transactions for ${merchantName}`}
-            className="showTransactionsToggleIcon"
+            className="transactionsToggleIcon"
+          />
+        )}
+        {!showTransactions && (
+          <Img
+            src={showMoreIcon}
+            alt={`Show transactions for ${merchantName}`}
+            className="transactionsToggleIcon"
           />
         )}
         {/* Merchant logo */}

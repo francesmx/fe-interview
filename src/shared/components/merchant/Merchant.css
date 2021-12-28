@@ -1,3 +1,9 @@
+.merchantAndTransactionsContainer {
+  border: dashed 1px gray;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
 .merchantContainer {
   display: flex;
   margin: auto;
@@ -15,7 +21,7 @@
   cursor: url('../../../assets/eyes-cursor.svg') 5 12, auto;
 }
 
-.showTransactionsToggleIcon {
+.transactionsToggleIcon {
   width: 20px;
   height: 20px;
   margin: 10px;
