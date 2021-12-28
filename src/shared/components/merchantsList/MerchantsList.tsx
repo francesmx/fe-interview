@@ -21,18 +21,20 @@ export const MerchantsList: React.FC = () => {
 
   return (
     <div>
-      <button
-        className={`tab ${viewBills ? 'selectedTab' : ''}`}
-        onClick={() => setViewBills(true)}
-      >
-        Bills
-      </button>
-      <button
-        className={`tab ${!viewBills ? 'selectedTab' : ''}`}
-        onClick={() => setViewBills(false)}
-      >
-        Potential Bills
-      </button>
+      <div className="tabs">
+        <button
+          className={`tab ${viewBills ? 'selectedTab' : ''}`}
+          onClick={() => setViewBills(true)}
+        >
+          Bills
+        </button>
+        <button
+          className={`tab ${!viewBills ? 'selectedTab' : ''}`}
+          onClick={() => setViewBills(false)}
+        >
+          Potential Bills
+        </button>
+      </div>
       <div className="container">
         {merchantsStatus === 'loading' && <div className="emptyState">Loading...</div>}
         {merchantsStatus === 'failed' && (

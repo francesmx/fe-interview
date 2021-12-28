@@ -1,3 +1,4 @@
+import './Merchant.css';
 import { format } from 'date-fns';
 import { useState } from 'react';
 import { Img } from 'react-image';

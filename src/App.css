@@ -20,3 +20,9 @@
   animation-name: tentacle;
   animation-duration: 4s;
 }
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
