@@ -39,9 +39,10 @@
 .merchantLogo {
   width: 50px;
   height: 50px;
-  padding: 10px;
+  padding: 7px;
   margin-right: 10px;
   border-radius: 50%;
+  align-self: center;
 }
 
 .merchantName {
