@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import { Img } from 'react-image';
 import cleoCoin from '../../../assets/cleo_coin.jpg';
 import loaderGif from '../../../assets/loader.gif';
-import showMoreIcon from '../../../assets/show-more.png';
-import showLessIcon from '../../../assets/show-less.png';
+import showMoreIcon from '../../../assets/show-more-icon.svg';
+import showLessIcon from '../../../assets/show-less-icon.svg';
 import { format } from 'date-fns';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
@@ -74,16 +74,16 @@ export const Merchants: React.FC = () => {
                   className="merchantContainer"
                   onClick={() => handleToggleTransactions(merchant.id)}
                 >
-                  {merchant.showTransactions ? (
+                  {!merchant.showTransactions ? (
                     <Img
-                      src={showLessIcon}
-                      alt={`Hide transactions for ${merchant.name}`}
+                      src={showMoreIcon}
+                      alt={`Show transactions for ${merchant.name}`}
                       className="showTransactionsToggleIcon"
                     />
                   ) : (
                     <Img
-                      src={showMoreIcon}
-                      alt={`Show transactions for ${merchant.name}`}
+                      src={showLessIcon}
+                      alt={`Hide transactions for ${merchant.name}`}
                       className="showTransactionsToggleIcon"
                     />
                   )}
