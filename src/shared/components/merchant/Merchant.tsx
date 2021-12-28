@@ -22,8 +22,8 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
     try {
       setUpdateMerchantStatus('pending');
       action === 'add'
-        ? await dispatch(addBill(merchantId))
-        : await dispatch(removeBill(merchantId));
+        ? await dispatch(addBill(merchantId)).unwrap()
+        : await dispatch(removeBill(merchantId)).unwrap();
     } catch (err) {
       console.error('Failed to update merchant: ', err);
     } finally {
