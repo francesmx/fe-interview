@@ -11,6 +11,7 @@
   text-align: center;
   min-height: 100vh;
   color: white;
+  line-height: 1.2;
   -webkit-font-smoothing: antialiased;
   background-color: #21248d;
   background-image: url('./assets/tentacle-left.png');
