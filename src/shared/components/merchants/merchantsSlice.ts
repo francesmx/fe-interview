@@ -15,6 +15,7 @@ export type Merchant = {
   isBill: boolean;
   name: string;
   transactions: Array<Transaction>;
+  showTransactions: Boolean | undefined;
 };
 
 type MerchantIdActionPayload = {
@@ -49,6 +50,16 @@ export const merchantsSlice = createSlice({
       const existingMerchant = state.merchants.find((merchant) => merchant.id === id);
       if (existingMerchant) {
         existingMerchant.isBill = false;
+      }
+    },
+    toggleShowTransactions(state, action: PayloadAction<MerchantIdActionPayload>) {
+      const { id } = action.payload;
+      const existingMerchant = state.merchants.find((merchant) => merchant.id === id);
+      if (existingMerchant) {
+        // if showTransactions is set, toggle it; if undefined, set to true
+        existingMerchant.showTransactions
+          ? (existingMerchant.showTransactions = !existingMerchant.showTransactions)
+          : (existingMerchant.showTransactions = true);
       }
     },
   },
@@ -100,6 +111,6 @@ export const addBill = createAsyncThunk('merchants/removeBill', async (merchantI
   }
 });
 
-export const { billAdded, billRemoved } = merchantsSlice.actions;
+export const { billAdded, billRemoved, toggleShowTransactions } = merchantsSlice.actions;
 
 export default merchantsSlice.reducer;

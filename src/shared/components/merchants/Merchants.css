@@ -42,13 +42,21 @@
   padding: 10px;
   width: 440px;
   text-align: left;
+  background: white;
   color: black;
+  border: none;
+  cursor: url('../../../assets/eyes-cursor.svg') 5 12, auto;
 }
 
-.showLessIcon {
+.merchantContainer button {
+  cursor: url('../../../assets/eyes-cursor.svg') 5 12, auto;
+}
+
+.showTransactionsToggleIcon {
   width: 20px;
   height: 20px;
   margin: 10px;
+  margin-left: 0px;
   align-self: center;
 }
 
@@ -56,9 +64,7 @@
   width: 230px;
   display: flex;
   flex-direction: column;
-  padding: 0px;
-  margin: 0px;
-  justify-content: center;
+  align-self: center;
 }
 
 .merchantLogo {
@@ -89,14 +95,20 @@
   cursor: url('../../../assets/eyes-cursor.svg') 5 12, auto;
 }
 
-thead {
-  display: none;
-}
-
 .transactionsContainer {
   color: black;
   display: flex;
   flex-direction: column;
+}
+
+.transactionsTable {
+  margin-left: 127px;
+  margin-bottom: 20px;
+  margin-right: 27px;
+}
+
+.transactionsTable thead {
+  display: none;
 }
 
 .emptyState {

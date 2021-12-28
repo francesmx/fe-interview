@@ -3,11 +3,18 @@ import { useEffect, useState } from 'react';
 import { Img } from 'react-image';
 import cleoCoin from '../../../assets/cleo_coin.jpg';
 import loaderGif from '../../../assets/loader.gif';
-// import showMoreIcon from '../../../assets/show-more.png';
+import showMoreIcon from '../../../assets/show-more.png';
 import showLessIcon from '../../../assets/show-less.png';
 import { format } from 'date-fns';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { fetchMerchants, billRemoved, billAdded, Merchant, Transaction } from './merchantsSlice';
+import {
+  fetchMerchants,
+  billRemoved,
+  billAdded,
+  toggleShowTransactions,
+  Merchant,
+  Transaction,
+} from './merchantsSlice';
 
 export const Merchants: React.FC = () => {
   const merchants = useAppSelector((state) => state.merchants.merchants);
@@ -28,6 +35,10 @@ export const Merchants: React.FC = () => {
 
   const handleAddAsBill = async (merchantId: string) => {
     dispatch(billAdded({ id: merchantId }));
+  };
+
+  const handleToggleTransactions = (merchantId: string) => {
+    dispatch(toggleShowTransactions({ id: merchantId }));
   };
 
   return (
@@ -59,12 +70,24 @@ export const Merchants: React.FC = () => {
                 key={merchant.id}
                 style={{ border: 'dashed 1px gray', marginBottom: 20, borderRadius: 10 }}
               >
-                <div className="merchantContainer">
-                  <Img
-                    src={showLessIcon}
-                    alt={`Hide transactions for ${merchant.name}`}
-                    className="showLessIcon"
-                  />
+                <button
+                  className="merchantContainer"
+                  onClick={() => handleToggleTransactions(merchant.id)}
+                >
+                  {merchant.showTransactions ? (
+                    <Img
+                      src={showLessIcon}
+                      alt={`Hide transactions for ${merchant.name}`}
+                      className="showTransactionsToggleIcon"
+                    />
+                  ) : (
+                    <Img
+                      src={showMoreIcon}
+                      alt={`Show transactions for ${merchant.name}`}
+                      className="showTransactionsToggleIcon"
+                    />
+                  )}
+
                   <Img
                     src={[merchant.iconUrl, cleoCoin]}
                     loader={<Img src={loaderGif} className="merchantLogo" />}
@@ -73,7 +96,7 @@ export const Merchants: React.FC = () => {
                   />
                   <div className="merchantNameAndTransactionsContainer">
                     <p className="merchantName">{merchant.name}</p>
-                    <p style={{ padding: 0, margin: 0 }}>
+                    <p style={{ padding: 0, margin: 0, fontSize: '1rem' }}>
                       {merchant.transactions.length} transactions
                     </p>
                   </div>
@@ -90,37 +113,39 @@ export const Merchants: React.FC = () => {
                       Add as bill
                     </button>
                   )}
-                </div>
-                <div className="transactionsContainer">
-                  <table style={{ marginLeft: 127, marginRight: 20, marginBottom: 20 }}>
-                    <thead>
-                      <tr>
-                        <th style={{ textAlign: 'left' }}>Date</th>
-                        <th style={{ textAlign: 'right' }}>Amount</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {/* Spread the transactions array into a new copy to enable sorting */}
-                      {[...merchant.transactions]
-                        .sort((a: Transaction, b: Transaction) => {
-                          return +new Date(b.date) - +new Date(a.date);
-                        })
-                        .map((transaction) => (
-                          <tr key={transaction.id}>
-                            <td style={{ textAlign: 'left' }}>
-                              {format(Date.parse(transaction.date), 'd MMM y')}
-                            </td>
-                            <td style={{ textAlign: 'right' }}>
-                              {new Intl.NumberFormat('en-GB', {
-                                style: 'currency',
-                                currency: 'GBP',
-                              }).format(transaction.amount)}
-                            </td>
-                          </tr>
-                        ))}
-                    </tbody>
-                  </table>
-                </div>
+                </button>
+                {merchant.showTransactions && (
+                  <div className="transactionsContainer">
+                    <table className="transactionsTable">
+                      <thead>
+                        <tr>
+                          <th style={{ textAlign: 'left' }}>Date</th>
+                          <th style={{ textAlign: 'right' }}>Amount</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {/* Spread the transactions array into a new copy to enable sorting */}
+                        {[...merchant.transactions]
+                          .sort((a: Transaction, b: Transaction) => {
+                            return +new Date(b.date) - +new Date(a.date);
+                          })
+                          .map((transaction) => (
+                            <tr key={transaction.id}>
+                              <td style={{ textAlign: 'left' }}>
+                                {format(Date.parse(transaction.date), 'd MMM y')}
+                              </td>
+                              <td style={{ textAlign: 'right' }}>
+                                {new Intl.NumberFormat('en-GB', {
+                                  style: 'currency',
+                                  currency: 'GBP',
+                                }).format(transaction.amount)}
+                              </td>
+                            </tr>
+                          ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
               </div>
             );
           })}
