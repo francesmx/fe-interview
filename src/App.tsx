@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
 import { Header } from './shared/components/header/Header';
-import { Merchants } from './shared/components/merchants/Merchants';
+import { MerchantsList } from './shared/components/merchantsList/MerchantsList';
 
 const App: React.FunctionComponent = () => (
   <div className="App">
     <Header />
-    <Merchants />
+    <MerchantsList />
   </div>
 );
 

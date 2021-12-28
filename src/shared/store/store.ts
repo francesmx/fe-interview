@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import merchantsReducer from './shared/components/merchants/merchantsSlice';
+import merchantsReducer from '../components/merchantsList/merchantsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -7,8 +7,8 @@ export const store = configureStore({
   },
 });
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
+// Infers the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
 
-// Inferred type: {merchants: MerchantsState}
+// Infers type: {merchants: MerchantsState}
 export type AppDispatch = typeof store.dispatch;
