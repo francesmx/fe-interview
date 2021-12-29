@@ -27,7 +27,9 @@ export const merchantsSlice = createSlice({
       })
       .addCase(fetchMerchants.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.merchants = state.merchants.concat(action.payload);
+        if (action.payload) {
+          state.merchants = state.merchants.concat(action.payload);
+        }
       })
       .addCase(fetchMerchants.rejected, (state, action) => {
         state.status = 'failed';

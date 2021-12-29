@@ -42,11 +42,17 @@ export const MerchantsList: React.FC = () => {
             Something went wrong when trying to retrieve merchants.<div>{error}</div>
           </div>
         )}
-        {merchants
-          ?.filter((merchant: MerchantType) => (viewBills ? merchant.isBill : !merchant.isBill))
-          .map((merchant: MerchantType) => {
-            return <Merchant merchant={merchant} key={merchant.id} />;
-          })}
+        {merchants?.length === 0 && (
+          <div className="emptyState">
+            No merchants have been found.<div>{error}</div>
+          </div>
+        )}
+        {merchants?.length > 0 &&
+          merchants
+            .filter((merchant: MerchantType) => (viewBills ? merchant?.isBill : !merchant?.isBill))
+            .map((merchant: MerchantType) => {
+              return <Merchant merchant={merchant} key={merchant.id} />;
+            })}
       </div>
     </div>
   );
