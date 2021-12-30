@@ -1,9 +1,9 @@
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-import { render, screen } from '../../../common/test-utils';
+import { render, screen } from '../../../common/utils/test-utils';
 import { MerchantsList } from './MerchantsList';
 import { Provider } from 'react-redux';
-import { APIConstants } from '../../../common/constants';
+import { APIConstants } from '../../../common/utils/constants';
 import { store } from '../../../app/store';
 
 const mockApiResponseMerchants = [
@@ -145,7 +145,7 @@ const mockApiResponseMerchants = [
   },
 ];
 
-// Intercept network request and return mock response after 150ms
+// Intercepts network request and return mock response after 150ms
 export const handlers = [
   rest.get(`${APIConstants.base}/merchants`, (req, res, ctx) => {
     return res(ctx.json(mockApiResponseMerchants), ctx.delay(150));

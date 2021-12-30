@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { APIConstants } from '../common/constants';
+import { APIConstants } from '../common/utils/constants';
 
 export const fetchMerchants = createAsyncThunk('merchants/fetchMerchants', async () => {
   try {
