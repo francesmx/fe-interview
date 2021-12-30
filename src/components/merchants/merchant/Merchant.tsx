@@ -28,7 +28,7 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
   };
 
   const handleKeyboardToggle = (event: KeyboardEvent<HTMLImageElement>) => {
-    if (event.key === 'Enter' || event.key === 'Space') {
+    if (event.key === 'Enter' || event.key === ' ') {
       handleToggleTransactions();
     }
   };
@@ -99,16 +99,16 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
   );
 
   return (
-    <div className="merchantAndTransactionsContainer">
-      {/* This container is clickable, to allow the user to toggle show/hide transactions.
-      Extra attributes make it keyboard accessible. Used a div to avoid nested buttons */}
-      <div
-        className="merchantContainer"
-        role="button"
-        tabIndex={0}
-        onKeyPress={handleKeyboardToggle}
-        onClick={handleToggleTransactions}
-      >
+    /* This container is clickable, to allow the user to toggle show/hide transactions.
+      Extra attributes make it keyboard accessible. Used a div to avoid nested buttons */
+    <div
+      className="merchantAndTransactionsContainer"
+      role="button"
+      tabIndex={0}
+      onKeyPress={handleKeyboardToggle}
+      onClick={handleToggleTransactions}
+    >
+      <div className="merchantContainer">
         {/* showTransactions render would be better as a ternary operator but this 
         (strangely) results in inconsistent rendering. For some reason this works. */}
         {merchant.showTransactions && showLessIcon}
