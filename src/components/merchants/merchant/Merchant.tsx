@@ -1,5 +1,5 @@
 import './Merchant.css';
-import { useState } from 'react';
+import { useState, KeyboardEvent } from 'react';
 import { Img } from 'react-image';
 import showMoreIconSvg from '../../../assets/show-more-icon.svg';
 import showLessIconSvg from '../../../assets/show-less-icon.svg';
@@ -23,11 +23,17 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
 
   const canMakeRequest = updateMerchantStatus === 'idle';
 
-  const handleToggleTransactions = (merchantId: string) => {
+  const handleToggleTransactions = () => {
     dispatch(toggleShowTransactions({ id: merchantId }));
   };
 
-  const handleUpdateMerchant = async (merchantId: string, action: 'add' | 'remove') => {
+  const handleKeyboardTransactionsToggle = (event: KeyboardEvent<HTMLImageElement>) => {
+    if (event.key === 'Enter') {
+      dispatch(toggleShowTransactions({ id: merchantId }));
+    }
+  };
+
+  const handleUpdateMerchant = async (action: 'add' | 'remove') => {
     try {
       setUpdateMerchantStatus('pending');
       action === 'add'
@@ -75,7 +81,7 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
   const removeButton = (
     <button
       className="merchantButton"
-      onClick={() => handleUpdateMerchant(merchantId, 'remove')}
+      onClick={() => handleUpdateMerchant('remove')}
       disabled={!canMakeRequest}
     >
       Remove bill
@@ -85,7 +91,7 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
   const addButton = (
     <button
       className="merchantButton"
-      onClick={() => handleUpdateMerchant(merchantId, 'add')}
+      onClick={() => handleUpdateMerchant('add')}
       disabled={!canMakeRequest}
     >
       Add as bill
@@ -94,7 +100,15 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
 
   return (
     <div className="merchantAndTransactionsContainer">
-      <div className="merchantContainer" onClick={() => handleToggleTransactions(merchant.id)}>
+      {/* This container is clickable, to allow the user to toggle show/hide transactions.
+      Extra attributes make it keyboard accessible. Used a div to avoid nested buttons */}
+      <div
+        className="merchantContainer"
+        role="button"
+        tabIndex={0}
+        onKeyPress={handleKeyboardTransactionsToggle}
+        onClick={handleToggleTransactions}
+      >
         {/* showTransactions render would be better as a ternary operator but this 
         (strangely) results in inconsistent rendering. For some reason this works. */}
         {merchant.showTransactions && showLessIcon}
