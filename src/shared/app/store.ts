@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import merchantsReducer from '../features/merchants/merchantsSlice';
+import merchantsReducer from '../components/merchants/merchantsSlice';
 
 export const store = configureStore({
   reducer: {
