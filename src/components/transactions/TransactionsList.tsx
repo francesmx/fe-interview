@@ -15,7 +15,7 @@ export const TransactionsList: React.FC<TransactionsProps> = ({ transactions }) 
   return (
     <div className="transactionsContainer">
       <table className="transactionsTable">
-        <thead>
+        <thead className="screenreader-only">
           <tr>
             <th style={{ textAlign: 'left' }}>Date</th>
             <th style={{ textAlign: 'right' }}>Amount</th>

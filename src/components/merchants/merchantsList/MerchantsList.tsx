@@ -51,11 +51,13 @@ export const MerchantsList: React.FC = () => {
 
   return (
     <main>
-      <div className="tabs">
+      {/* Used buttons rather than anchor links for navigation since user remains on page */}
+      <nav className="tabs">
         {tabBills}
         {tabPotentialBills}
-      </div>
-      <div className="container">
+      </nav>
+      <section className="container">
+        <h1 className="screenreader-only">{viewBills ? 'Bills' : 'Potential Bills'}</h1>
         {merchantsStatus === 'loading' && loadingMessage}
         {merchantsStatus === 'failed' && errorMessage}
         {merchantsStatus === 'succeeded' && filteredMerchants.length === 0 && noMerchantsMessage}
@@ -64,7 +66,7 @@ export const MerchantsList: React.FC = () => {
           filteredMerchants.map((merchant: MerchantType) => {
             return <Merchant merchant={merchant} key={merchant.id} />;
           })}
-      </div>
+      </section>
     </main>
   );
 };

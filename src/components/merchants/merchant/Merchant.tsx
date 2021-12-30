@@ -73,7 +73,7 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
 
   const merchantNameAndTransactions = (
     <div className="merchantNameAndTransactionsContainer">
-      <p className="merchantName">{merchantName}</p>
+      <h2 className="merchantName">{merchantName}</h2>
       <p style={{ padding: 0, margin: 0, fontSize: '1rem' }}>{transactions.length} transactions</p>
     </div>
   );
@@ -100,7 +100,7 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
 
   return (
     /* This container is clickable, to allow the user to toggle show/hide transactions.
-      Extra attributes make it keyboard accessible. Used a div to avoid nested buttons */
+      Extra attributes make it keyboard accessible. Used a section to avoid nested buttons */
     <div
       className="merchantAndTransactionsContainer"
       role="button"
