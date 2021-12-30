@@ -20,24 +20,23 @@ export const MerchantsList: React.FC = () => {
     }
   }, [merchantsStatus, dispatch]);
 
-  const tabs = (
-    <div className="tabs">
-      <button
-        className={`tab ${viewBills ? 'selectedTab' : ''}`}
-        onClick={() => setViewBills(true)}
-      >
-        Bills
-      </button>
-      <button
-        className={`tab ${!viewBills ? 'selectedTab' : ''}`}
-        onClick={() => setViewBills(false)}
-      >
-        Potential Bills
-      </button>
-    </div>
+  const tabBills = (
+    <button className={`tab ${viewBills ? 'selectedTab' : ''}`} onClick={() => setViewBills(true)}>
+      Bills
+    </button>
+  );
+
+  const tabPotentialBills = (
+    <button
+      className={`tab ${!viewBills ? 'selectedTab' : ''}`}
+      onClick={() => setViewBills(false)}
+    >
+      Potential Bills
+    </button>
   );
 
   const loadingMessage = <div className="emptyState">Loading...</div>;
+
   const errorMessage = (
     <div className="emptyState">
       Something went wrong when trying to retrieve merchants.<div>{merchantsError}</div>
@@ -54,7 +53,10 @@ export const MerchantsList: React.FC = () => {
 
   return (
     <div>
-      {tabs}
+      <div className="tabs">
+        {tabBills}
+        {tabPotentialBills}
+      </div>
       <div className="container">
         {merchantsStatus === 'loading' && loadingMessage}
         {merchantsStatus === 'failed' && errorMessage}
