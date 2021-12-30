@@ -5,7 +5,7 @@
 .tab {
   display: inline-block;
   padding: 15px;
-  margin: 15px 0 0 15px;
+  margin: 15px 8px 0px 8px;
   font-size: 1rem;
   background-color: #63ffb0;
   color: black;
@@ -58,4 +58,8 @@
   background-color: white;
   color: black;
   padding-bottom: 20px;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

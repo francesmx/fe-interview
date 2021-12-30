@@ -27,9 +27,9 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
     dispatch(toggleShowTransactions({ id: merchantId }));
   };
 
-  const handleKeyboardTransactionsToggle = (event: KeyboardEvent<HTMLImageElement>) => {
-    if (event.key === 'Enter') {
-      dispatch(toggleShowTransactions({ id: merchantId }));
+  const handleKeyboardToggle = (event: KeyboardEvent<HTMLImageElement>) => {
+    if (event.key === 'Enter' || event.key === 'Space') {
+      handleToggleTransactions();
     }
   };
 
@@ -106,7 +106,7 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
         className="merchantContainer"
         role="button"
         tabIndex={0}
-        onKeyPress={handleKeyboardTransactionsToggle}
+        onKeyPress={handleKeyboardToggle}
         onClick={handleToggleTransactions}
       >
         {/* showTransactions render would be better as a ternary operator but this 
