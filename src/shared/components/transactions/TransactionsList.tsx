@@ -7,6 +7,11 @@ interface TransactionsProps {
 }
 
 export const TransactionsList: React.FC<TransactionsProps> = ({ transactions }) => {
+  /* Spread transactions array into a new copy to allow sorting by most recent order  */
+  const sortedTransactions = [...transactions].sort((a: TransactionType, b: TransactionType) => {
+    return +new Date(b.date) - +new Date(a.date);
+  });
+
   return (
     <div className="transactionsContainer">
       <table className="transactionsTable">
@@ -17,7 +22,7 @@ export const TransactionsList: React.FC<TransactionsProps> = ({ transactions }) 
           </tr>
         </thead>
         <tbody>
-          {transactions.map((transaction) => (
+          {sortedTransactions.map((transaction) => (
             <TransactionRow transaction={transaction} key={transaction.id} />
           ))}
         </tbody>

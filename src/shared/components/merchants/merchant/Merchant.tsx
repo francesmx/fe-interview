@@ -6,7 +6,7 @@ import showLessIconSvg from '../../../../assets/show-less-icon.svg';
 import cleoCoin from '../../../../assets/cleo_coin.jpg';
 import loaderGif from '../../../../assets/loader.gif';
 import { useAppDispatch } from '../../../common/hooks';
-import { MerchantType, TransactionType } from '../../../common/types';
+import { MerchantType } from '../../../common/types';
 import { addBill, removeBill } from '../../../api/merchantsApi';
 import { TransactionsList } from '../../transactions/TransactionsList';
 
@@ -92,13 +92,6 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
     </button>
   );
 
-  /* Spread transactions array into a new copy to allow sorting by most recent order  */
-  const sortedTransactions = [...merchant.transactions].sort(
-    (a: TransactionType, b: TransactionType) => {
-      return +new Date(b.date) - +new Date(a.date);
-    }
-  );
-
   return (
     <div className="merchantAndTransactionsContainer">
       <div className="merchantContainer" onClick={() => handleToggleTransactions()}>
@@ -110,7 +103,7 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
         {merchantNameAndTransactions}
         {isBill ? removeButton : addButton}
       </div>
-      {showTransactions && <TransactionsList transactions={sortedTransactions} />}
+      {showTransactions && <TransactionsList transactions={transactions} />}
     </div>
   );
 };
