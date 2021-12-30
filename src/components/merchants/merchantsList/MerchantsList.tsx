@@ -45,7 +45,7 @@ export const MerchantsList: React.FC = () => {
 
   const noMerchantsMessage = <div className="emptyState">No merchants have been found.</div>;
 
-  const merchantsList = merchants
+  const filteredMerchants = merchants
     .filter((merchant: MerchantType) => (viewBills ? merchant?.isBill : !merchant?.isBill))
     .map((merchant: MerchantType) => {
       return <Merchant merchant={merchant} key={merchant.id} />;
@@ -60,8 +60,8 @@ export const MerchantsList: React.FC = () => {
       <div className="container">
         {merchantsStatus === 'loading' && loadingMessage}
         {merchantsStatus === 'failed' && errorMessage}
-        {merchantsStatus === 'succeeded' && merchants.length === 0 && noMerchantsMessage}
-        {merchantsStatus === 'succeeded' && merchants.length > 0 && merchantsList}
+        {merchantsStatus === 'succeeded' && filteredMerchants.length === 0 && noMerchantsMessage}
+        {merchantsStatus === 'succeeded' && merchants.length > 0 && filteredMerchants}
       </div>
     </div>
   );
