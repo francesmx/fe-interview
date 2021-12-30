@@ -64,19 +64,3 @@
   align-self: center;
   cursor: url('../../../../assets/eyes-cursor.svg') 5 12, auto;
 }
-
-.transactionsContainer {
-  color: black;
-  display: flex;
-  flex-direction: column;
-}
-
-.transactionsTable {
-  margin-left: 97px;
-  margin-bottom: 20px;
-  margin-right: 19px;
-}
-
-.transactionsTable thead {
-  display: none;
-}

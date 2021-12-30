@@ -1,4 +1,4 @@
-export type Transaction = {
+export type TransactionType = {
   amount: number;
   date: string;
   id: number;
@@ -10,5 +10,5 @@ export type MerchantType = {
   id: string;
   isBill: boolean;
   name: string;
-  transactions: Array<Transaction>;
+  transactions: Array<TransactionType>;
 };
