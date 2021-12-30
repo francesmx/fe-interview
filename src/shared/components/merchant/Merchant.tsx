@@ -7,8 +7,8 @@ import showLessIcon from '../../../assets/show-less-icon.svg';
 import cleoCoin from '../../../assets/cleo_coin.jpg';
 import loaderGif from '../../../assets/loader.gif';
 import { useAppDispatch } from '../../hooks/hooks';
-import { addBill, removeBill } from '../merchantsList/merchantsSlice';
 import { MerchantType, Transaction } from '../../types/sharedTypes';
+import { addBill, removeBill } from '../../api/api';
 
 interface MerchantProps {
   merchant: MerchantType;

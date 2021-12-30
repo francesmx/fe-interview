@@ -1,14 +1,15 @@
 import './MerchantsList.css';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { fetchMerchants } from './merchantsSlice';
+import { selectMerchants, selectMerchantsError, selectMerchantsStatus } from './merchantsSlice';
 import { Merchant } from '../merchant/Merchant';
 import { MerchantType } from '../../types/sharedTypes';
+import { fetchMerchants } from '../../api/api';
 
 export const MerchantsList: React.FC = () => {
-  const merchants = useAppSelector((state) => state.merchants.merchants);
-  const merchantsStatus = useAppSelector((state) => state.merchants.status);
-  const error = useAppSelector((state) => state.merchants.error);
+  const merchants = useAppSelector(selectMerchants);
+  const merchantsStatus = useAppSelector(selectMerchantsStatus);
+  const merchantsError = useAppSelector(selectMerchantsError);
   const dispatch = useAppDispatch();
 
   const [viewBills, setViewBills] = useState(true);
@@ -39,15 +40,14 @@ export const MerchantsList: React.FC = () => {
         {merchantsStatus === 'loading' && <div className="emptyState">Loading...</div>}
         {merchantsStatus === 'failed' && (
           <div className="emptyState">
-            Something went wrong when trying to retrieve merchants.<div>{error}</div>
+            Something went wrong when trying to retrieve merchants.<div>{merchantsError}</div>
           </div>
         )}
-        {merchants?.length === 0 && (
-          <div className="emptyState">
-            No merchants have been found.<div>{error}</div>
-          </div>
+        {merchantsStatus === 'succeeded' && merchants.length === 0 && (
+          <div className="emptyState">No merchants have been found.</div>
         )}
-        {merchants?.length > 0 &&
+        {merchantsStatus === 'succeeded' &&
+          merchants.length > 0 &&
           merchants
             .filter((merchant: MerchantType) => (viewBills ? merchant?.isBill : !merchant?.isBill))
             .map((merchant: MerchantType) => {

@@ -5,6 +5,6 @@ describe('Header', () => {
   it('renders the header correctly', () => {
     render(<Header />);
     const cleoLogo = screen.getByRole('img');
-    expect(cleoLogo).toBeInTheDocument();
+    expect(cleoLogo).toHaveAttribute('alt', 'Cleo logo');
   });
 });

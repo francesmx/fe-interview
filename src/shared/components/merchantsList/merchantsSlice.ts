@@ -1,7 +1,7 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice } from '@reduxjs/toolkit';
+import { addBill, fetchMerchants, removeBill } from '../../api/api';
+import { RootState } from '../../store/store';
 import { MerchantType } from '../../types/sharedTypes';
-import { APIConstants } from '../../utils/constants';
 
 interface MerchantsState {
   merchants: [] | Array<MerchantType>;
@@ -70,35 +70,8 @@ export const merchantsSlice = createSlice({
   },
 });
 
-export const fetchMerchants = createAsyncThunk('merchants/fetchMerchants', async () => {
-  try {
-    const response = await axios.get(`${APIConstants.base}/merchants`);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-  }
-});
-
-export const removeBill = createAsyncThunk('merchants/removeBill', async (merchantId: string) => {
-  try {
-    const response = await axios.patch(`${APIConstants.base}/merchants/${merchantId}`, {
-      isBill: false,
-    });
-    return response.data;
-  } catch (error) {
-    console.error(error);
-  }
-});
-
-export const addBill = createAsyncThunk('merchants/addBill', async (merchantId: string) => {
-  try {
-    const response = await axios.patch(`${APIConstants.base}/merchants/${merchantId}`, {
-      isBill: true,
-    });
-    return response.data;
-  } catch (error) {
-    console.error(error);
-  }
-});
+export const selectMerchants = (state: RootState) => state.merchants.merchants;
+export const selectMerchantsStatus = (state: RootState) => state.merchants.status;
+export const selectMerchantsError = (state: RootState) => state.merchants.error;
 
 export default merchantsSlice.reducer;
