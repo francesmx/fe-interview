@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { TransactionType } from '../../common/types';
+import { TransactionType } from '../../shared/types';
 
 interface TransactionRowProps {
   transaction: TransactionType;

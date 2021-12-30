@@ -14,11 +14,11 @@
   color: black;
   border: none;
   border-radius: 10px;
-  cursor: url('../../../../assets/eyes-cursor.svg') 5 12, auto;
+  cursor: url('../../../assets/eyes-cursor.svg') 5 12, auto;
 }
 
 .merchantContainer button {
-  cursor: url('../../../../assets/eyes-cursor.svg') 5 12, auto;
+  cursor: url('../../../assets/eyes-cursor.svg') 5 12, auto;
 }
 
 .transactionsToggleIcon {
@@ -62,5 +62,5 @@
   height: 40px;
   margin: 10px;
   align-self: center;
-  cursor: url('../../../../assets/eyes-cursor.svg') 5 12, auto;
+  cursor: url('../../../assets/eyes-cursor.svg') 5 12, auto;
 }

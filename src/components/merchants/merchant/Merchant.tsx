@@ -1,12 +1,12 @@
 import './Merchant.css';
 import { useState } from 'react';
 import { Img } from 'react-image';
-import showMoreIconSvg from '../../../../assets/show-more-icon.svg';
-import showLessIconSvg from '../../../../assets/show-less-icon.svg';
-import cleoCoin from '../../../../assets/cleo_coin.jpg';
-import loaderGif from '../../../../assets/loader.gif';
-import { useAppDispatch } from '../../../common/hooks';
-import { MerchantType } from '../../../common/types';
+import showMoreIconSvg from '../../../assets/show-more-icon.svg';
+import showLessIconSvg from '../../../assets/show-less-icon.svg';
+import cleoCoin from '../../../assets/cleo_coin.jpg';
+import loaderGif from '../../../assets/loader.gif';
+import { useAppDispatch } from '../../../shared/hooks';
+import { MerchantType } from '../../../shared/types';
 import { addBill, removeBill } from '../../../api/merchantsApi';
 import { TransactionsList } from '../../transactions/TransactionsList';
 

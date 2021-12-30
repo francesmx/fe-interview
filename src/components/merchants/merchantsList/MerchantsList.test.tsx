@@ -1,10 +1,10 @@
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-import { render, screen } from '../../../common/utils/test-utils';
+import { render, screen } from '../../../shared/utils/test-utils';
 import { MerchantsList } from './MerchantsList';
 import { Provider } from 'react-redux';
-import { APIConstants } from '../../../common/utils/constants';
-import { store } from '../../../app/store';
+import { APIConstants } from '../../../shared/utils/constants';
+import { store } from '../../../store/store';
 
 const mockApiResponseMerchants = [
   {

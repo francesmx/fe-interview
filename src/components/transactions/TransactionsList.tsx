@@ -1,5 +1,5 @@
 import './Transactions.css';
-import { TransactionType } from '../../common/types';
+import { TransactionType } from '../../shared/types';
 import { TransactionRow } from './TransactionsRow';
 
 interface TransactionsProps {
