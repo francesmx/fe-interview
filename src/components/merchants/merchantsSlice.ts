@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { addBill, fetchMerchants, removeBill } from '../../api/merchantsApi';
 import { RootState } from '../../store/store';
 import { MerchantType } from '../../shared/types';
@@ -15,10 +15,26 @@ const initialState: MerchantsState = {
   error: null,
 };
 
+type MerchantIdActionPayload = {
+  id: string;
+};
+
 export const merchantsSlice = createSlice({
   name: 'merchants',
   initialState,
-  reducers: {},
+  reducers: {
+    toggleShowTransactions(state, action: PayloadAction<MerchantIdActionPayload>) {
+      const { id } = action.payload;
+      const existingMerchant = state.merchants.find((merchant) => merchant.id === id);
+      if (existingMerchant) {
+        /*  if showTransactions is set, toggle it; if undefined, set to true  
+            (showTransactions is internal only; it's not stored in the db)  */
+        existingMerchant.showTransactions
+          ? (existingMerchant.showTransactions = !existingMerchant.showTransactions)
+          : (existingMerchant.showTransactions = true);
+      }
+    },
+  },
   extraReducers(builder) {
     builder
       // fetchMerchants API call
@@ -73,5 +89,7 @@ export const merchantsSlice = createSlice({
 export const selectMerchants = (state: RootState) => state.merchants.merchants;
 export const selectMerchantsStatus = (state: RootState) => state.merchants.status;
 export const selectMerchantsError = (state: RootState) => state.merchants.error;
+
+export const { toggleShowTransactions } = merchantsSlice.actions;
 
 export default merchantsSlice.reducer;

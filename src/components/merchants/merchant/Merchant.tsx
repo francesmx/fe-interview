@@ -9,6 +9,7 @@ import { useAppDispatch } from '../../../shared/hooks';
 import { MerchantType } from '../../../shared/types';
 import { addBill, removeBill } from '../../../api/merchantsApi';
 import { TransactionsList } from '../../transactions/TransactionsList';
+import { toggleShowTransactions } from '../merchantsSlice';
 
 interface MerchantProps {
   merchant: MerchantType;
@@ -16,15 +17,14 @@ interface MerchantProps {
 
 export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
   const [updateMerchantStatus, setUpdateMerchantStatus] = useState('idle');
-  const [showTransactions, setShowTransactions] = useState(false);
   const dispatch = useAppDispatch();
 
   const { id: merchantId, name: merchantName, iconUrl, isBill, transactions } = merchant;
 
   const canMakeRequest = updateMerchantStatus === 'idle';
 
-  const handleToggleTransactions = () => {
-    setShowTransactions(!showTransactions);
+  const handleToggleTransactions = (merchantId: string) => {
+    dispatch(toggleShowTransactions({ id: merchantId }));
   };
 
   const handleUpdateMerchant = async (merchantId: string, action: 'add' | 'remove') => {
@@ -94,16 +94,16 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
 
   return (
     <div className="merchantAndTransactionsContainer">
-      <div className="merchantContainer" onClick={() => handleToggleTransactions()}>
+      <div className="merchantContainer" onClick={() => handleToggleTransactions(merchant.id)}>
         {/* showTransactions render would be better as a ternary operator but this 
         (strangely) results in inconsistent rendering. For some reason this works. */}
-        {showTransactions && showLessIcon}
-        {!showTransactions && showMoreIcon}
+        {merchant.showTransactions && showLessIcon}
+        {!merchant.showTransactions && showMoreIcon}
         {merchantLogo}
         {merchantNameAndTransactions}
         {isBill ? removeButton : addButton}
       </div>
-      {showTransactions && <TransactionsList transactions={transactions} />}
+      {merchant.showTransactions && <TransactionsList transactions={transactions} />}
     </div>
   );
 };
