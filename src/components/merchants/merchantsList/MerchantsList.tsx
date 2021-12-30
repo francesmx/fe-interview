@@ -52,7 +52,7 @@ export const MerchantsList: React.FC = () => {
     });
 
   return (
-    <div>
+    <main>
       <div className="tabs">
         {tabBills}
         {tabPotentialBills}
@@ -63,6 +63,6 @@ export const MerchantsList: React.FC = () => {
         {merchantsStatus === 'succeeded' && filteredMerchants.length === 0 && noMerchantsMessage}
         {merchantsStatus === 'succeeded' && merchants.length > 0 && filteredMerchants}
       </div>
-    </div>
+    </main>
   );
 };
