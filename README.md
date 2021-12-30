@@ -58,3 +58,22 @@ A React application that allows users to mark or unmark merchants as Bills, to h
 - We love tests, linted code and great looking UIs
 - The API contains other data, feel free to use this creatively if you have the time
 - Remember to check your project runs before submitting
+
+### Accessibility Checklist
+
+- [x] Design – Use accessible colours (contrast & colour blindness), font size, layout, motion & interactions
+
+- [x] Content – Copy is written using plain language with clear and unique links & CTAs, ALT text & hidden labels
+
+- [x] Keyboard only – Using only a keyboard (no mouse or touch), navigation is in the correct order and all interactive elements are reachable
+
+- [] Screen reader – Works with a screen reader with meaningful focus order, heading tags, image descriptions & hidden labels
+
+- [] Magnification – Can zoom up to 400% (or down to mobile size 320px) without losing content or functionality
+
+### To Do List
+
+- [] Dockerise
+- [] Use Styled Components
+- [] Use Redux Sagas
+- [] Make use of Categories information from the API
