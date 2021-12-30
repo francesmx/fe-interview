@@ -1,10 +1,10 @@
 import './MerchantsList.css';
 import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { selectMerchants, selectMerchantsError, selectMerchantsStatus } from './merchantsSlice';
+import { useAppDispatch, useAppSelector } from '../../../common/hooks';
+import { selectMerchants, selectMerchantsError, selectMerchantsStatus } from '../merchantsSlice';
 import { Merchant } from '../merchant/Merchant';
-import { MerchantType } from '../../types/sharedTypes';
-import { fetchMerchants } from '../../api/api';
+import { MerchantType } from '../merchantTypes';
+import { fetchMerchants } from '../../../api/merchantsApi';
 
 export const MerchantsList: React.FC = () => {
   const merchants = useAppSelector(selectMerchants);

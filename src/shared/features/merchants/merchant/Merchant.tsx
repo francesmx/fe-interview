@@ -2,13 +2,13 @@ import './Merchant.css';
 import { format } from 'date-fns';
 import { useState } from 'react';
 import { Img } from 'react-image';
-import showMoreIcon from '../../../assets/show-more-icon.svg';
-import showLessIcon from '../../../assets/show-less-icon.svg';
-import cleoCoin from '../../../assets/cleo_coin.jpg';
-import loaderGif from '../../../assets/loader.gif';
-import { useAppDispatch } from '../../hooks/hooks';
-import { MerchantType, Transaction } from '../../types/sharedTypes';
-import { addBill, removeBill } from '../../api/api';
+import showMoreIcon from '../../../../assets/show-more-icon.svg';
+import showLessIcon from '../../../../assets/show-less-icon.svg';
+import cleoCoin from '../../../../assets/cleo_coin.jpg';
+import loaderGif from '../../../../assets/loader.gif';
+import { useAppDispatch } from '../../../common/hooks';
+import { MerchantType, Transaction } from '../merchantTypes';
+import { addBill, removeBill } from '../../../api/merchantsApi';
 
 interface MerchantProps {
   merchant: MerchantType;

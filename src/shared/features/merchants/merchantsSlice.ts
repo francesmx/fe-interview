@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addBill, fetchMerchants, removeBill } from '../../api/api';
-import { RootState } from '../../store/store';
-import { MerchantType } from '../../types/sharedTypes';
+import { addBill, fetchMerchants, removeBill } from '../../api/merchantsApi';
+import { RootState } from '../../app/store';
+import { MerchantType } from './merchantTypes';
 
 interface MerchantsState {
   merchants: [] | Array<MerchantType>;

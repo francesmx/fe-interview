@@ -4,7 +4,7 @@
 import { render as rtlRender } from '@testing-library/react';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
-import merchantsReducer from '../components/merchantsList/merchantsSlice';
+import merchantsReducer from '../features/merchants/merchantsSlice';
 
 function render(
   ui,
