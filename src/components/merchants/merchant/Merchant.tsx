@@ -98,17 +98,22 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
     </button>
   );
 
+  const toggleLabelText = merchant.showTransactions
+    ? `Hide transactions for ${merchantName}`
+    : `Show transactions for ${merchantName}`;
+
   return (
     <ul className="listContainer">
       <li>
         {/* This container is clickable, to allow the user to toggle show/hide transactions.
-          Used a div to enable the onKeyPress attribute */}
+          Used a div to enable the onKeyPress attribute, and aria attributes for screenreaders */}
         <div
           className="merchantAndTransactionsContainer"
           role="button"
           tabIndex={0}
           onKeyPress={handleKeyboardToggle}
           onClick={handleToggleTransactions}
+          aria-label={toggleLabelText}
           aria-expanded={merchant.showTransactions}
         >
           <div className="merchantContainer">

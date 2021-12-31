@@ -56,7 +56,6 @@ export const MerchantsList: React.FC = () => {
 
   return (
     <main>
-      {/* Used buttons rather than anchor links for navigation since user remains on page */}
       <nav className="tabs">
         {tabBills}
         {tabPotentialBills}
