@@ -2,7 +2,7 @@
 
 A React application that allows users to mark or unmark merchants as Bills, to help with budgeting.
 
-<img src="https://i.imgur.com/BNClWx7.png" alt="Screenshot of app" width="400" />
+<img src="https://i.imgur.com/iCOuXik.png" alt="Screenshot of app" width="350" />
 
 ### Instructions
 
@@ -83,8 +83,8 @@ Here's a list of things I would have done if I had more time:
 
 ### Design Evolution
 
-I really liked my original design (see below). However an accessibility check made me realise that you shouldn't nest interactive elements, i.e. the show/hide toggle, and the main call to action (add/remove bill). I tried to overcome this with absolute positioning, but ultimately realised it was easier to re-design and take the button out of the flow.
+I liked my original design idea (see below) because it was colourful and attractive. However an accessibility check made me realise that you shouldn't nest interactive elements, i.e. the show/hide toggle, and the main call to action (add/remove bill). I tried to overcome this with absolute positioning, but ultimately realised it was easier and better to re-design and take the button out of the flow.
 
-In doing so, I de-emphasised the button's priority and re-styled as a link so that they didn't dominate the interface. Cleo's link styling doesn't usually include underlines but I felt this made it super clear. Another advantage of the new design is that it works well at a resolution as low as 320px width. The end result is slightly less pretty, but more usable and accessible.
+In doing so, I de-emphasised the button's priority and re-styled as a link so that it doesn't dominate the interface but is still easy enough to access. Cleo's link styling doesn't usually include underlines but I felt this made it super clear. Another advantage of the new design is that it works well even on screen widths as low as 320px. The end result is slightly less pretty, but more usable and accessible.
 
-<img src="https://i.imgur.com/uhrD3h6.png" alt="Screenshot of original design" width="400" />
+<img src="https://i.imgur.com/sw12HRp.png" alt="Comparison of old vs new designs" width="800" />
