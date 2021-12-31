@@ -67,7 +67,7 @@ A React application that allows users to mark or unmark merchants as Bills, to h
 
 - [x] Keyboard only – Using only a keyboard (no mouse or touch), navigation is in the correct order and all interactive elements are reachable
 
-- [] Screen reader – Works with a screen reader with meaningful focus order, heading tags, image descriptions & hidden labels
+- [x] Screen reader – Works with a screen reader with meaningful focus order, heading tags, image descriptions & hidden labels
 
 - [x] Magnification – Can zoom up to 400% (or down to mobile size 320px) without losing content or functionality
 
@@ -75,11 +75,11 @@ A React application that allows users to mark or unmark merchants as Bills, to h
 
 Here's a list of things I would have done if I had more time:
 
-- [] Dockerise - to standardise environment for installation and running, and for simpler deployment
-- [] Use Styled Components
-- [] Use Redux Sagas
-- [] Make use of Categories information from the API
-- [] Implement a snackbar to confirm when merchants have been updated
+- [/] Dockerise - to standardise environment for installation and running, and for simpler deployment
+- [/] Use Styled Components
+- [/] Use Redux Sagas
+- [/] Make use of Categories information from the API
+- [/] Implement a snackbar to confirm when merchants have been updated
 
 ### Design Evolution
 
