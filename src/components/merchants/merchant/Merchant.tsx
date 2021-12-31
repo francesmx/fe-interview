@@ -72,7 +72,7 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
   );
 
   const merchantNameAndTransactions = (
-    <div className="merchantNameAndTransactionsContainer">
+    <div className="merchantNameAndTransactions">
       <h2 className="merchantName">{merchantName}</h2>
       <p style={{ padding: 0, margin: 0, fontSize: '1rem' }}>{transactions.length} transactions</p>
     </div>
@@ -99,30 +99,32 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
   );
 
   return (
-    <section style={{ border: 'dashed 1px gray', borderRadius: 10, marginBottom: 20 }}>
-      {/* This container is clickable, to allow the user to toggle show/hide transactions.
-      Extra attributes make it keyboard accessible. Used a div to enable onKeyPress attribute */}
-      <div
-        className="merchantAndTransactionsContainer"
-        role="button"
-        tabIndex={0}
-        onKeyPress={handleKeyboardToggle}
-        onClick={handleToggleTransactions}
-        aria-expanded={merchant.showTransactions}
-      >
-        <div className="merchantContainer">
-          {merchantLogo}
-          {merchantNameAndTransactions}
-          {/* showTransactions render would be better as a ternary operator but this 
+    <ul className="listContainer">
+      <li>
+        {/* This container is clickable, to allow the user to toggle show/hide transactions.
+          Used a div to enable the onKeyPress attribute */}
+        <div
+          className="merchantAndTransactionsContainer"
+          role="button"
+          tabIndex={0}
+          onKeyPress={handleKeyboardToggle}
+          onClick={handleToggleTransactions}
+          aria-expanded={merchant.showTransactions}
+        >
+          <div className="merchantContainer">
+            {merchantLogo}
+            {merchantNameAndTransactions}
+            {/* showTransactions render would be better as a ternary operator but this 
         (strangely) results in inconsistent rendering. For some reason this works. */}
-          {merchant.showTransactions && showLessIcon}
-          {!merchant.showTransactions && showMoreIcon}
+            {merchant.showTransactions && showLessIcon}
+            {!merchant.showTransactions && showMoreIcon}
+          </div>
+          {merchant.showTransactions && <TransactionsList transactions={transactions} />}
         </div>
-        {merchant.showTransactions && <TransactionsList transactions={transactions} />}
-      </div>
-      {/* Button element feels semantially correct (as it's not linking outwards), 
+        {/* Button element feels semantially correct (as it's not linking outwards), 
           but is styled as a link to not dominate visual hierarchy when section collapsed */}
-      {isBill ? removeButton : addButton}
-    </section>
+        {isBill ? removeButton : addButton}
+      </li>
+    </ul>
   );
 };
