@@ -61,6 +61,8 @@ A React application that allows users to mark or unmark merchants as Bills, to h
 
 ### Accessibility Checklist
 
+App is scoring 100% for accessibility for automated checks with AXE and Lighthouse.
+
 - [x] Design – Use accessible colours (contrast & colour blindness), font size, layout, motion & interactions
 
 - [x] Content – Copy is written using plain language with clear and unique links & CTAs, ALT text & hidden labels
@@ -75,11 +77,11 @@ A React application that allows users to mark or unmark merchants as Bills, to h
 
 Here's a list of things I would have done if I had more time:
 
-- [/] Dockerise - to standardise environment for installation and running, and for simpler deployment
-- [/] Use Styled Components
-- [/] Use Redux Sagas
-- [/] Make use of Categories information from the API
-- [/] Implement a snackbar to confirm when merchants have been updated
+- [] Dockerise - to standardise environment for installation and running, and for simpler deployment
+- [] Use Styled Components
+- [] Use Redux Sagas
+- [] Make use of Categories information from the API
+- [] Implement a snackbar to confirm when merchants have been updated
 
 ### Design Evolution
 
