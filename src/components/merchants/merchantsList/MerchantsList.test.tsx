@@ -185,7 +185,44 @@ describe('Merchants List', () => {
       screen.getByText(/HSBC Mortgage/);
     });
 
-    it('allows you to toggle between bills and potential bills', async () => {});
+    it('allows you to toggle between bills and potential bills', async () => {
+      render(
+        <Provider store={store}>
+          <MerchantsList />
+        </Provider>
+      );
+
+      // Destructure the first two buttons, which are the tabs
+      const buttons = screen.getAllByRole('button');
+      const [bills, potentialBills] = buttons;
+
+      // They should be labelled Bills, and Potential Bills
+      expect(bills).toHaveTextContent('Bills');
+      expect(potentialBills).toHaveTextContent('Potential Bills');
+
+      // Because Bills is the default tab, it should be disabled
+      expect(bills).toBeDisabled();
+      expect(potentialBills).not.toBeDisabled();
+
+      // The two merchants showing are the ones currently marked as bills
+      const skyTvMerchant = await screen.findByText(/Sky TV/);
+      const hsbcMerchant = screen.getByText(/HSBC Mortgage/);
+
+      // Click on Potential Bills to change tab
+      fireEvent.click(potentialBills);
+
+      // Now Potential Bills should be disabled and Bills not
+      await expect(potentialBills).toBeDisabled();
+      expect(bills).not.toBeDisabled();
+
+      // The two previous merchants should no longer be showing
+      expect(skyTvMerchant).not.toBeInTheDocument();
+      expect(hsbcMerchant).not.toBeInTheDocument();
+
+      // And the other merchants, marked as potential bills should be there instead
+      screen.findByText(/Vodafone/);
+      screen.getByText(/Sainsbury's/);
+    });
 
     it('allows you to toggle to show or hide transactions', async () => {
       render(
@@ -282,6 +319,8 @@ describe('Merchants List', () => {
     });
 
     it('persists the show/hide transactions status for each merchant when going between tabs', async () => {});
+
+    it('does not persist the show/hide transactions status for a merchant that you just updated', async () => {});
 
     it('allows you to mark a merchant as not being a bill', async () => {});
 
