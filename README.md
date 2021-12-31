@@ -2,7 +2,7 @@
 
 A React application that allows users to mark or unmark merchants as Bills, to help with budgeting.
 
-<img src="https://i.imgur.com/uhrD3h6.png" alt="Screenshot of app" width="400" />
+<img src="https://i.imgur.com/BNClWx7.png" alt="Screenshot of app" width="400" />
 
 ### Instructions
 
@@ -69,11 +69,22 @@ A React application that allows users to mark or unmark merchants as Bills, to h
 
 - [] Screen reader – Works with a screen reader with meaningful focus order, heading tags, image descriptions & hidden labels
 
-- [] Magnification – Can zoom up to 400% (or down to mobile size 320px) without losing content or functionality
+- [x] Magnification – Can zoom up to 400% (or down to mobile size 320px) without losing content or functionality
 
 ### To Do List
 
-- [] Dockerise
+Here's a list of things I would have done if I had more time:
+
+- [] Dockerise - to standardise environment for installation and running, and for simpler deployment
 - [] Use Styled Components
 - [] Use Redux Sagas
 - [] Make use of Categories information from the API
+- [] Implement a snackbar to confirm when merchants have been updated
+
+### Design Evolution
+
+I really liked my original design (see below). However an accessibility check made me realise that you shouldn't nest interactive elements, i.e. the show/hide toggle, and the main call to action (add/remove bill). I tried to overcome this with absolute positioning, but ultimately realised it was easier to re-design and take the button out of the flow.
+
+In doing so, I de-emphasised the button's priority and re-styled as a link so that they didn't dominate the interface. Cleo's link styling doesn't usually include underlines but I felt this made it super clear. Another advantage of the new design is that it works well at a resolution as low as 320px width. The end result is slightly less pretty, but more usable and accessible.
+
+<img src="https://i.imgur.com/uhrD3h6.png" alt="Screenshot of original design" width="400" />

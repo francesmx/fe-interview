@@ -99,25 +99,30 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
   );
 
   return (
-    /* This container is clickable, to allow the user to toggle show/hide transactions.
-      Extra attributes make it keyboard accessible. Used a section to avoid nested buttons */
-    <div
-      className="merchantAndTransactionsContainer"
-      role="button"
-      tabIndex={0}
-      onKeyPress={handleKeyboardToggle}
-      onClick={handleToggleTransactions}
-    >
-      <div className="merchantContainer">
-        {/* showTransactions render would be better as a ternary operator but this 
+    <section style={{ border: 'dashed 1px gray', borderRadius: 10, marginBottom: 20 }}>
+      {/* This container is clickable, to allow the user to toggle show/hide transactions.
+      Extra attributes make it keyboard accessible. Used a div to enable onKeyPress attribute */}
+      <div
+        className="merchantAndTransactionsContainer"
+        role="button"
+        tabIndex={0}
+        onKeyPress={handleKeyboardToggle}
+        onClick={handleToggleTransactions}
+        aria-expanded={merchant.showTransactions}
+      >
+        <div className="merchantContainer">
+          {merchantLogo}
+          {merchantNameAndTransactions}
+          {/* showTransactions render would be better as a ternary operator but this 
         (strangely) results in inconsistent rendering. For some reason this works. */}
-        {merchant.showTransactions && showLessIcon}
-        {!merchant.showTransactions && showMoreIcon}
-        {merchantLogo}
-        {merchantNameAndTransactions}
-        {isBill ? removeButton : addButton}
+          {merchant.showTransactions && showLessIcon}
+          {!merchant.showTransactions && showMoreIcon}
+        </div>
+        {merchant.showTransactions && <TransactionsList transactions={transactions} />}
       </div>
-      {merchant.showTransactions && <TransactionsList transactions={transactions} />}
-    </div>
+      {/* Button element feels semantially correct (as it's not linking outwards), 
+          but is styled as a link to not dominate visual hierarchy when section collapsed */}
+      {isBill ? removeButton : addButton}
+    </section>
   );
 };

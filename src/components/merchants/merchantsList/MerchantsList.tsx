@@ -21,7 +21,11 @@ export const MerchantsList: React.FC = () => {
   }, [merchantsStatus, dispatch]);
 
   const tabBills = (
-    <button className={`tab ${viewBills ? 'selectedTab' : ''}`} onClick={() => setViewBills(true)}>
+    <button
+      className={`tab ${viewBills ? 'selectedTab' : ''}`}
+      onClick={() => setViewBills(true)}
+      disabled={viewBills}
+    >
       Bills
     </button>
   );
@@ -30,6 +34,7 @@ export const MerchantsList: React.FC = () => {
     <button
       className={`tab ${!viewBills ? 'selectedTab' : ''}`}
       onClick={() => setViewBills(false)}
+      disabled={!viewBills}
     >
       Potential Bills
     </button>

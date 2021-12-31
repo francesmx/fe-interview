@@ -4,10 +4,10 @@
 
 .tab {
   display: inline-block;
-  padding: 15px;
+  padding: 15px 30px;
   margin: 15px 8px 0px 8px;
   font-size: 1rem;
-  background-color: #63ffb0;
+  background-color: #ffe36d;
   color: black;
   border: solid 1px black;
   border-radius: 8px 8px 0 0;
@@ -15,10 +15,20 @@
   cursor: url('../../../assets/eyes-cursor.svg') 5 12, auto;
 }
 
-@media only screen and (min-width: 500px) {
-  /* For tablets and desktop: */
+.tab:hover:enabled {
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+  opacity: 1;
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+  transform-origin: bottom;
+}
+
+@media only screen and (max-width: 370px) {
+  /* For very small screens: */
   .tab {
-    width: 200px;
+    padding: 15px 10px;
+    margin: 15px 5px 0px 5px;
   }
 }
 
@@ -37,7 +47,7 @@
 
 .container {
   background: white;
-  max-width: 500px;
+  max-width: 420px;
   display: flex;
   flex-direction: column;
   margin: auto;
@@ -45,13 +55,6 @@
   padding: 20px;
   padding-bottom: 0px;
   border-radius: 10px;
-}
-
-@media only screen and (max-width: 500px) {
-  /* For mobile phones: */
-  .container {
-    min-width: 100%;
-  }
 }
 
 .emptyState {
