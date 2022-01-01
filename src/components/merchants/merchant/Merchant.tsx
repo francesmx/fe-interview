@@ -83,6 +83,7 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
       className="merchantButton"
       onClick={() => handleUpdateMerchant('remove')}
       disabled={!canMakeRequest}
+      aria-label={`Remove ${merchant.name} as a bill`}
     >
       Remove bill
     </button>
@@ -93,6 +94,7 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
       className="merchantButton"
       onClick={() => handleUpdateMerchant('add')}
       disabled={!canMakeRequest}
+      aria-label={`Add ${merchant.name} as a bill`}
     >
       Add as bill
     </button>
