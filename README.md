@@ -61,7 +61,7 @@ A React application that allows users to mark or unmark merchants as Bills, to h
 
 ### Accessibility Checklist
 
-App is scoring 100% for accessibility for automated checks with AXE and Lighthouse.
+App is scoring 100% for accessibility for automated checks with AXE and Lighthouse. There are some decisions I made around providing additional markup for accessibility that I'm not sure about, e.g. more descriptive aria-label text for add/remove bill, as well as the off-screen h1 tag for Bills or Potential Bills. They felt helpful to me but I would seek advice on this irl.
 
 - [x] Design – Use accessible colours (contrast & colour blindness), font size, layout, motion & interactions
 
@@ -82,6 +82,12 @@ Here's a list of things I would have done if I had more time:
 - [] Use Redux Sagas
 - [] Make use of Categories information from the API
 - [] Implement a snackbar to confirm when merchants have been updated
+- [] Display merchants in some kind of order!
+
+### Things I'd like to discuss with a more senior engineer
+
+- Best practices for capturing API request states in Redux
+- Best practices for accessibility, e.g. hidden elements, use of aria-label
 
 ### Design Evolution
 
