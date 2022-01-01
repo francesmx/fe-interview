@@ -153,6 +153,7 @@ describe('Merchants List', () => {
       rest.get(`${APIConstants.base}/merchants`, (req, res, ctx) => {
         return res(ctx.json(mockApiResponseWithFourMerchants), ctx.delay(150));
       }),
+      // need to add a handler for the patch request later in the test
     ];
 
     const server = setupServer(...handlers);
@@ -322,7 +323,33 @@ describe('Merchants List', () => {
 
     it('does not persist the show/hide transactions status for a merchant that you just updated', async () => {});
 
-    it('allows you to mark a merchant as not being a bill', async () => {});
+    it('allows you to mark a merchant as not being a bill', async () => {
+      render(
+        <Provider store={store}>
+          <MerchantsList />
+        </Provider>
+      );
+
+      // Await the merchants marked as Bills
+      await screen.findByText(/Sky TV/);
+
+      // Click Remove Bill
+      const removeButton = screen.getByLabelText('Remove Sky TV as a bill');
+      fireEvent.click(removeButton);
+
+      // Sky TV should no longer be found
+      const skyTvMerchant = screen.queryByText(/Sky TV/);
+      expect(skyTvMerchant).not.toBeInTheDocument();
+
+      // Click on Potential Bills
+      const potentialBillsButton = screen.getByRole('button', {
+        name: /Potential Bills/i,
+      });
+      fireEvent.click(potentialBillsButton);
+
+      // Sky TV should be there
+      await screen.findByText(/Sky TV/);
+    });
 
     it('allows you to mark a potential bill as a bill', async () => {});
   });
