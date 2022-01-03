@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../../shared/hooks';
 import { selectMerchants, selectMerchantsError, selectMerchantsStatus } from '../merchantsSlice';
 import { Merchant } from '../merchant/Merchant';
 import { MerchantType } from '../../../shared/types';
-import { fetchMerchants } from '../../../api/merchantsApi';
+import { fetchMerchants } from '../merchantsThunks';
 
 export const MerchantsList: React.FC = () => {
   const merchants = useAppSelector(selectMerchants);

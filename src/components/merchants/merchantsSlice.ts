@@ -1,18 +1,33 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { addBill, fetchMerchants, removeBill } from '../../api/merchantsApi';
+import { addBill, fetchMerchants, removeBill } from './merchantsThunks';
 import { RootState } from '../../store/store';
 import { MerchantType } from '../../shared/types';
 
+interface apiCallStatus {
+  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  error: string | undefined;
+}
 interface MerchantsState {
   merchants: [] | Array<MerchantType>;
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
-  error: string | null | undefined;
+  fetch: apiCallStatus;
+  addBill: apiCallStatus;
+  removeBill: apiCallStatus;
 }
 
 const initialState: MerchantsState = {
   merchants: [],
-  status: 'idle',
-  error: null,
+  fetch: {
+    status: 'idle',
+    error: undefined,
+  },
+  addBill: {
+    status: 'idle',
+    error: undefined,
+  },
+  removeBill: {
+    status: 'idle',
+    error: undefined,
+  },
 };
 
 type MerchantIdActionPayload = {
@@ -37,26 +52,26 @@ export const merchantsSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      // fetchMerchants API call
+      /* ********** fetchMerchants API call ********** */
       .addCase(fetchMerchants.pending, (state) => {
-        state.status = 'loading';
+        state.fetch.status = 'loading';
       })
       .addCase(fetchMerchants.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.fetch.status = 'succeeded';
         if (action.payload) {
           state.merchants = state.merchants.concat(action.payload);
         }
       })
       .addCase(fetchMerchants.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
+        state.fetch.status = 'failed';
+        state.fetch.error = action.error.message;
       })
-      // removeBill API call
+      /* ********** removeBill API call ********** */
       .addCase(removeBill.pending, (state) => {
-        state.status = 'loading';
+        state.removeBill.status = 'loading';
       })
       .addCase(removeBill.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.removeBill.status = 'succeeded';
         const { id } = action.payload;
         const existingMerchant = state.merchants.find((merchant) => merchant.id === id);
         if (existingMerchant) {
@@ -65,15 +80,15 @@ export const merchantsSlice = createSlice({
         }
       })
       .addCase(removeBill.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
+        state.removeBill.status = 'failed';
+        state.removeBill.error = action.error.message;
       })
-      // addBill API call
+      /* ********** addBill API call ********** */
       .addCase(addBill.pending, (state) => {
-        state.status = 'loading';
+        state.addBill.status = 'loading';
       })
       .addCase(addBill.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.addBill.status = 'succeeded';
         const { id } = action.payload;
         const existingMerchant = state.merchants.find((merchant) => merchant.id === id);
         if (existingMerchant) {
@@ -82,15 +97,22 @@ export const merchantsSlice = createSlice({
         }
       })
       .addCase(addBill.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
+        state.addBill.status = 'failed';
+        state.addBill.error = action.error.message;
       });
   },
 });
 
 export const selectMerchants = (state: RootState) => state.merchants.merchants;
-export const selectMerchantsStatus = (state: RootState) => state.merchants.status;
-export const selectMerchantsError = (state: RootState) => state.merchants.error;
+
+export const selectMerchantsStatus = (state: RootState) => state.merchants.fetch.status;
+export const selectMerchantsError = (state: RootState) => state.merchants.fetch.error;
+
+export const addBillStatus = (state: RootState) => state.merchants.addBill.status;
+export const addBillError = (state: RootState) => state.merchants.addBill.error;
+
+export const removeBillStatus = (state: RootState) => state.merchants.removeBill.status;
+export const removeBillError = (state: RootState) => state.merchants.removeBill.error;
 
 export const { toggleShowTransactions } = merchantsSlice.actions;
 

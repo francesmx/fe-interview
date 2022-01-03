@@ -1,6 +1,12 @@
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-import { fireEvent, render, screen, within } from '../../../shared/utils/test-utils';
+import {
+  fireEvent,
+  render,
+  screen,
+  within,
+  waitForElementToBeRemoved,
+} from '../../../shared/utils/test-utils';
 import { MerchantsList } from './MerchantsList';
 import { Provider } from 'react-redux';
 import { APIConstants } from '../../../shared/utils/constants';
@@ -9,7 +15,7 @@ import { store } from '../../../store/store';
 describe('Merchants List', () => {
   describe('Happy paths', () => {
     // Returns four merchants - two bills and two potential bills
-    const mockApiResponseWithFourMerchants = [
+    const mockResponseWithFourMerchants = [
       {
         categoryId: 1,
         iconUrl: 'https://pbs.twimg.com/profile_images/1151788824093188097/wHfb5mYZ_bigger.png',
@@ -148,12 +154,51 @@ describe('Merchants List', () => {
       },
     ];
 
-    // Intercepts network request and returns mock response after 150ms
+    const mockResponseSkyTvAfterRemoval = {
+      categoryId: 2,
+      iconUrl: 'https://i.imgur.com/cIABrGH.png',
+      id: '5a5caa8efe33900100fd8ed6',
+      isBill: false,
+      name: 'Sky TV',
+      transactions: [
+        {
+          amount: 82.17,
+          date: '2018-01-01',
+          id: 41,
+        },
+        {
+          amount: 82.17,
+          date: '2018-02-01',
+          id: 42,
+        },
+        {
+          amount: 82.17,
+          date: '2018-03-01',
+          id: 43,
+        },
+        {
+          amount: 82.17,
+          date: '2018-04-01',
+          id: 44,
+        },
+        {
+          amount: 82.17,
+          date: '2018-05-01',
+          id: 45,
+        },
+      ],
+    };
+
+    const skyTvId = '5a5caa8efe33900100fd8ed6';
+
+    // Intercepts network requests and returns mock responses after 150ms
     const handlers = [
       rest.get(`${APIConstants.base}/merchants`, (req, res, ctx) => {
-        return res(ctx.json(mockApiResponseWithFourMerchants), ctx.delay(150));
+        return res(ctx.json(mockResponseWithFourMerchants), ctx.delay(150));
       }),
-      // need to add a handler for the patch request later in the test
+      rest.patch(`${APIConstants.base}/merchants/${skyTvId}`, (req, res, ctx) => {
+        return res(ctx.json(mockResponseSkyTvAfterRemoval), ctx.delay(150));
+      }),
     ];
 
     const server = setupServer(...handlers);
@@ -338,8 +383,7 @@ describe('Merchants List', () => {
       fireEvent.click(removeButton);
 
       // Sky TV should no longer be found
-      const skyTvMerchant = screen.queryByText(/Sky TV/);
-      expect(skyTvMerchant).not.toBeInTheDocument();
+      await waitForElementToBeRemoved(() => screen.queryByText(/Sky TV/));
 
       // Click on Potential Bills
       const potentialBillsButton = screen.getByRole('button', {

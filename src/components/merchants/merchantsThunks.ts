@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { APIConstants } from '../shared/utils/constants';
+import { APIConstants } from '../../shared/utils/constants';
 
 export const fetchMerchants = createAsyncThunk('merchants/fetchMerchants', async () => {
   try {
@@ -27,6 +27,7 @@ export const addBill = createAsyncThunk('merchants/addBill', async (merchantId: 
     const response = await axios.patch(`${APIConstants.base}/merchants/${merchantId}`, {
       isBill: true,
     });
+
     return response.data;
   } catch (error) {
     console.error(error);

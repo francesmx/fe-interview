@@ -1,27 +1,26 @@
 import './Merchant.css';
-import { useState, KeyboardEvent } from 'react';
+import { KeyboardEvent } from 'react';
 import { Img } from 'react-image';
 import showMoreIconSvg from '../../../assets/show-more-icon.svg';
 import showLessIconSvg from '../../../assets/show-less-icon.svg';
 import cleoCoin from '../../../assets/cleo_coin.jpg';
 import loaderGif from '../../../assets/loader.gif';
-import { useAppDispatch } from '../../../shared/hooks';
+import { useAppDispatch, useAppSelector } from '../../../shared/hooks';
 import { MerchantType } from '../../../shared/types';
-import { addBill, removeBill } from '../../../api/merchantsApi';
+import { addBill, removeBill } from '../merchantsThunks';
 import { TransactionsList } from '../../transactions/TransactionsList';
-import { toggleShowTransactions } from '../merchantsSlice';
+import { addBillStatus, removeBillStatus, toggleShowTransactions } from '../merchantsSlice';
 
 interface MerchantProps {
   merchant: MerchantType;
 }
 
 export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
-  const [updateMerchantStatus, setUpdateMerchantStatus] = useState('idle');
+  const addStatus = useAppSelector(addBillStatus);
+  const removeStatus = useAppSelector(removeBillStatus);
   const dispatch = useAppDispatch();
 
   const { id: merchantId, name: merchantName, iconUrl, isBill, transactions } = merchant;
-
-  const canMakeRequest = updateMerchantStatus === 'idle';
 
   const handleToggleTransactions = () => {
     dispatch(toggleShowTransactions({ id: merchantId }));
@@ -35,14 +34,11 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
 
   const handleUpdateMerchant = async (action: 'add' | 'remove') => {
     try {
-      setUpdateMerchantStatus('pending');
       action === 'add'
         ? await dispatch(addBill(merchantId)).unwrap()
         : await dispatch(removeBill(merchantId)).unwrap();
     } catch (err) {
       console.error('Failed to update merchant: ', err);
-    } finally {
-      setUpdateMerchantStatus('idle');
     }
   };
 
@@ -82,7 +78,7 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
     <button
       className="merchantButton"
       onClick={() => handleUpdateMerchant('remove')}
-      disabled={!canMakeRequest}
+      disabled={removeStatus === 'loading'}
       aria-label={`Remove ${merchant.name} as a bill`}
     >
       Remove bill
@@ -93,7 +89,7 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
     <button
       className="merchantButton"
       onClick={() => handleUpdateMerchant('add')}
-      disabled={!canMakeRequest}
+      disabled={addStatus === 'loading'}
       aria-label={`Add ${merchant.name} as a bill`}
     >
       Add as bill
