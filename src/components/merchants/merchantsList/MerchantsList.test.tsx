@@ -279,7 +279,7 @@ describe('Merchants List', () => {
 
       // By default transactions should be hidden
       const skyTvMerchant = await screen.findByText(/Sky TV/);
-      let transactionsTable = screen.queryByRole('table');
+      let transactionsTable = within(skyTvMerchant).queryByRole('table');
       expect(transactionsTable).not.toBeInTheDocument();
 
       // Click on the merchant to show transactions
@@ -298,75 +298,121 @@ describe('Merchants List', () => {
           .getAllByRole('columnheader')
           .map((cell) => cell.textContent)
       ).toMatchInlineSnapshot(`
-    Array [
-      "Date",
-      "Amount",
-    ]
-  `);
+            Array [
+              "Date",
+              "Amount",
+            ]
+        `);
 
       expect(
         within(row1)
           .getAllByRole('cell')
           .map((cell) => cell.textContent)
       ).toMatchInlineSnapshot(`
-    Array [
-      "1 May 2018",
-      "£82.17",
-    ]
-  `);
+            Array [
+              "1 May 2018",
+              "£82.17",
+            ]
+        `);
 
       expect(
         within(row2)
           .getAllByRole('cell')
           .map((cell) => cell.textContent)
       ).toMatchInlineSnapshot(`
-    Array [
-      "1 Apr 2018",
-      "£82.17",
-    ]
-  `);
+            Array [
+              "1 Apr 2018",
+              "£82.17",
+            ]
+        `);
 
       expect(
         within(row3)
           .getAllByRole('cell')
           .map((cell) => cell.textContent)
       ).toMatchInlineSnapshot(`
-    Array [
-      "1 Mar 2018",
-      "£82.17",
-    ]
-  `);
+            Array [
+              "1 Mar 2018",
+              "£82.17",
+            ]
+        `);
 
       expect(
         within(row4)
           .getAllByRole('cell')
           .map((cell) => cell.textContent)
       ).toMatchInlineSnapshot(`
-    Array [
-      "1 Feb 2018",
-      "£82.17",
-    ]
-  `);
+            Array [
+              "1 Feb 2018",
+              "£82.17",
+            ]
+        `);
 
       expect(
         within(row5)
           .getAllByRole('cell')
           .map((cell) => cell.textContent)
       ).toMatchInlineSnapshot(`
-    Array [
-      "1 Jan 2018",
-      "£82.17",
-    ]
-  `);
+            Array [
+              "1 Jan 2018",
+              "£82.17",
+            ]
+        `);
 
       // Click again on the merchant to hide transactions
       fireEvent.click(skyTvMerchant);
       expect(transactionsTable).not.toBeInTheDocument();
     });
 
-    it('persists the show/hide transactions status for each merchant when going between tabs', async () => {});
+    it('persists the show/hide transactions status for each merchant when going between tabs', async () => {
+      render(
+        <Provider store={store}>
+          <MerchantsList />
+        </Provider>
+      );
 
-    it('does not persist the show/hide transactions status for a merchant that you just updated', async () => {});
+      // By default transactions should be hidden
+      const skyTvMerchant = await screen.findByText(/Sky TV/);
+
+      const skyTvTransactions = screen.queryByLabelText('Transactions for Sky TV');
+      expect(skyTvTransactions).not.toBeInTheDocument();
+
+      // Click on Sky TV to show transactions
+      fireEvent.click(skyTvMerchant);
+      const skyTransactionsTable = await screen.findByRole('table');
+
+      // Table should have 6 rows (1 header, 5 transactions)
+      const skyTransactionRows = within(skyTransactionsTable).getAllByRole('row');
+      expect(skyTransactionRows.length).toEqual(6);
+
+      // Click on Potential Bills
+      const potentialBillsButton = screen.getByRole('button', {
+        name: /Potential Bills/i,
+      });
+      fireEvent.click(potentialBillsButton);
+
+      // Sainsbury's should be there, with transactions not showing by default
+      const sainsburysMerchant = await screen.findByText(/Sainsbury's/);
+      const sainsburysTransactions = screen.queryByLabelText("Transactions for Sainsbury's");
+      expect(sainsburysTransactions).not.toBeInTheDocument();
+
+      // Click on Sainsburys to show transactions
+      fireEvent.click(sainsburysMerchant);
+      const sainsburysTransactionsTable = await screen.findByRole('table');
+
+      // Table should have 6 rows (1 header, 5 transactions)
+      const sainsburysTransactionRows = within(sainsburysTransactionsTable).getAllByRole('row');
+      expect(sainsburysTransactionRows.length).toEqual(6);
+
+      // Navigate back to Bills
+      const billsButton = screen.getByRole('button', {
+        name: /^Bills$/,
+      });
+      fireEvent.click(billsButton);
+
+      // Sky TV transactions should still be showing
+      await screen.findByLabelText('Transactions for Sky TV');
+    });
 
     it('allows you to mark a merchant as not being a bill', async () => {
       render(
@@ -396,6 +442,8 @@ describe('Merchants List', () => {
     });
 
     it('allows you to mark a potential bill as a bill', async () => {});
+
+    it('does not allow you to action a merchant that was just actioned', async () => {});
   });
 
   describe('Other states', () => {

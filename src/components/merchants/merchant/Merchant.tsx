@@ -122,7 +122,9 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
             {merchant.showTransactions && showLessIcon}
             {!merchant.showTransactions && showMoreIcon}
           </div>
-          {merchant.showTransactions && <TransactionsList transactions={transactions} />}
+          {merchant.showTransactions && (
+            <TransactionsList merchantName={merchant.name} transactions={transactions} />
+          )}
         </div>
         {/* Button element feels semantially correct (as it's not linking outwards), 
           but is styled as a link to not dominate visual hierarchy when section collapsed */}

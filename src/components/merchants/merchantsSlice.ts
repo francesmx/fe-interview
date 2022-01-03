@@ -76,7 +76,6 @@ export const merchantsSlice = createSlice({
         const existingMerchant = state.merchants.find((merchant) => merchant.id === id);
         if (existingMerchant) {
           existingMerchant.isBill = false;
-          existingMerchant.showTransactions = false;
         }
       })
       .addCase(removeBill.rejected, (state, action) => {
@@ -93,7 +92,6 @@ export const merchantsSlice = createSlice({
         const existingMerchant = state.merchants.find((merchant) => merchant.id === id);
         if (existingMerchant) {
           existingMerchant.isBill = true;
-          existingMerchant.showTransactions = false;
         }
       })
       .addCase(addBill.rejected, (state, action) => {
