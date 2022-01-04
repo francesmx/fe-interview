@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import eyesCursor from '../../../assets/eyes-cursor.svg';
+import { StyleConstants } from '../../../shared/utils/constants';
 
 export const StyledUnorderedList = styled.ul`
   border: dashed 1px gray;
@@ -60,7 +61,7 @@ export const StyledButton = styled.button`
   align-items: center;
   font-size: 1.1em;
   text-align: left;
-  color: #341cff;
+  color: ${StyleConstants.COLOURS.cleoPurple};
   font-weight: bold;
   background: none;
   padding: 10px;

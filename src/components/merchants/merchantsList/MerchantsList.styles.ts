@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import pizzaCursor from '../../../assets/pizza-cursor.svg';
 import eyesCursor from '../../../assets/eyes-cursor.svg';
+import { StyleConstants } from '../../../shared/utils/constants';
 
 interface StyledTabProps {
   selected: boolean;
@@ -17,7 +18,8 @@ export const StyledTab = styled.button<StyledTabProps>`
   text-transform: uppercase;
   cursor: ${(props) =>
     props.selected ? `url(${pizzaCursor}) 2 2, auto` : `url(${eyesCursor}) 5 12, auto`};
-  background-color: ${(props) => (props.selected ? 'white' : '#ffe36d')};
+  background-color: ${(props) =>
+    props.selected ? 'white' : `${StyleConstants.COLOURS.cleoYellow}`};
   border-bottom: ${(props) => props.selected && 'solid 1px white'};
   font-weight: ${(props) => props.selected && 'bold'};
 

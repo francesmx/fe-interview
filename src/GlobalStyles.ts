@@ -1,5 +1,6 @@
 import { createGlobalStyle, keyframes } from 'styled-components';
 import tentacleImage from './assets/tentacle-left.png';
+import { StyleConstants } from './shared/utils/constants';
 
 const tentacleAnimation = keyframes`
   from {
@@ -17,7 +18,7 @@ export const GlobalStyles = createGlobalStyle`
     color: white;
     line-height: 1.2;
     -webkit-font-smoothing: antialiased;
-    background-color: #21248d;
+    background-color: ${StyleConstants.COLOURS.cleoBlue};
     background-image: url(${tentacleImage});
     background-repeat: no-repeat;
     background-size: auto;
