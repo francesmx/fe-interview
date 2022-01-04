@@ -3,9 +3,9 @@ import pizzaCursor from '../../../assets/pizza-cursor.svg';
 import eyesCursor from '../../../assets/eyes-cursor.svg';
 import { StyleConstants } from '../../../shared/utils/constants';
 
-interface StyledTabProps {
+type StyledTabProps = {
   selected: boolean;
-}
+};
 
 export const StyledTab = styled.button<StyledTabProps>`
   display: inline-block;

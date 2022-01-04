@@ -15,9 +15,9 @@ import {
 } from './Merchants.styles';
 import { MerchantLogo } from '../merchantLogo/MerchantLogo';
 
-interface MerchantProps {
+type MerchantProps = {
   merchant: MerchantType;
-}
+};
 
 export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
   const addStatus = useAppSelector(addBillStatus);
@@ -89,10 +89,12 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
             <h2>{merchantName}</h2>
             <p>{transactions.length} transactions</p>
           </StyledMerchantNameAndTransactionsCount>
-          <StyledToggleIcon
-            src={merchant.showTransactions ? showLessIconSvg : showMoreIconSvg}
-            alt={toggleLabelText}
-          />
+          {merchant.transactions.length > 0 && (
+            <StyledToggleIcon
+              src={merchant.showTransactions ? showLessIconSvg : showMoreIconSvg}
+              alt={toggleLabelText}
+            />
+          )}
         </StyledMerchant>
         {merchant.showTransactions && merchant.transactions.length > 0 && (
           <TransactionsList merchantName={merchant.name} transactions={transactions} />

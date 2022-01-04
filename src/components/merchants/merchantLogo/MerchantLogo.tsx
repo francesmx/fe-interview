@@ -2,10 +2,10 @@ import { Img } from 'react-image';
 import cleoCoin from '../../../assets/cleo_coin.jpg';
 import loaderGif from '../../../assets/loader.gif';
 
-interface MerchantLogoProps {
+type MerchantLogoProps = {
   iconUrl: string;
   merchantName: string;
-}
+};
 
 // Using react-image's <Img/> tag because it provides a fallback mechanism for failed images
 // However - unsure how to use this with styled-components

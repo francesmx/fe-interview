@@ -2,10 +2,10 @@ import { TransactionType } from '../../shared/types';
 import { StyledTransactionsContainer, StyleTransactionsTable } from './Transactions.styles';
 import { TransactionRow } from './TransactionsRow';
 
-interface TransactionsProps {
+type TransactionsProps = {
   merchantName: string;
   transactions: Array<TransactionType>;
-}
+};
 
 export const TransactionsList: React.FC<TransactionsProps> = ({ merchantName, transactions }) => {
   /* Spread transactions array into a new copy to allow sorting by most recent order  */
@@ -16,6 +16,7 @@ export const TransactionsList: React.FC<TransactionsProps> = ({ merchantName, tr
   return (
     <StyledTransactionsContainer>
       <StyleTransactionsTable aria-label={`Transactions for ${merchantName}`}>
+        {/* It didn't seem worth creating styled components for the table head */}
         <thead className="screenreader-only">
           <tr>
             <th style={{ textAlign: 'left' }}>Date</th>

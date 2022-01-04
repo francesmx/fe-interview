@@ -3,16 +3,16 @@ import { addBill, fetchMerchants, removeBill } from './merchantsThunks';
 import { RootState } from '../../store/store';
 import { MerchantType } from '../../shared/types';
 
-interface apiCallStatus {
+type apiCallStatus = {
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | undefined;
-}
-interface MerchantsState {
+};
+type MerchantsState = {
   merchants: [] | Array<MerchantType>;
   fetch: apiCallStatus;
   addBill: apiCallStatus;
   removeBill: apiCallStatus;
-}
+};
 
 const initialState: MerchantsState = {
   merchants: [],

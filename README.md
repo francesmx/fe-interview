@@ -83,7 +83,8 @@ Here's a list of things I would have done if I had more time (not in any order):
 - [ ] Better experience for screen reader users
 - [ ] Give some kind of confirmation to users when merchants have been updated
 - [ ] Better error handling for failed merchant updates
-- [ ] Display merchants in some kind of order!
+- [ ] Troubleshoot memory leak warning in console
+- [ ] Display merchants in some kind of order! Or allow user to sort
 - [ ] Better handling for merchants with zero transactions (but need to understand use case)
 - [ ] Prettier loading state, e.g. fake / blurry Merchants (this probably has a proper name!)
 - [ ] Make use of Categories information from the API
