@@ -93,7 +93,7 @@ Here's a list of things I would have done if I had more time (not in any order):
 
 ### Things I'd like to discuss with a more senior engineer
 
-- Best practices for capturing API request states in Redux, how to integrate Saga (haven't yet tried but interested to hear what it offers)
+- Best practices for capturing API request states in Redux, re-fetching merchants from the API, how to integrate Saga (haven't yet tried but interested to hear what it offers)
 - Best practices for accessibility, e.g. hidden elements, use of aria-labels, how to audit with a screenreader
 - Best practices for / idiomatic use of styled-components, e.g. architecture, naming, use of CSS variables
 - How best to use Mock Service Worker, or what the alternatives might be
