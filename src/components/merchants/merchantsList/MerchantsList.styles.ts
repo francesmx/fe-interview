@@ -60,3 +60,9 @@ export const StyledEmptyContainerMessage = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
+export const StyledUnorderedList = styled.ul`
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+`;

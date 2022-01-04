@@ -1,9 +1,6 @@
 import { KeyboardEvent } from 'react';
-import { Img } from 'react-image';
 import showMoreIconSvg from '../../../assets/show-more-icon.svg';
 import showLessIconSvg from '../../../assets/show-less-icon.svg';
-import cleoCoin from '../../../assets/cleo_coin.jpg';
-import loaderGif from '../../../assets/loader.gif';
 import { useAppDispatch, useAppSelector } from '../../../shared/hooks';
 import { MerchantType } from '../../../shared/types';
 import { addBill, removeBill } from '../merchantsThunks';
@@ -11,11 +8,12 @@ import { TransactionsList } from '../../transactions/TransactionsList';
 import { addBillStatus, removeBillStatus, toggleShowTransactions } from '../merchantsSlice';
 import {
   StyledButton,
-  StyledUnorderedList,
+  StyledListItem,
   StyledMerchant,
   StyledMerchantNameAndTransactionsCount,
   StyledToggleIcon,
 } from './Merchants.styles';
+import { MerchantLogo } from '../merchantLogo/MerchantLogo';
 
 interface MerchantProps {
   merchant: MerchantType;
@@ -48,52 +46,10 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
     }
   };
 
-  // TODO: Pass in a prop instead of having separate variables
-  const showLessIcon = (
-    <StyledToggleIcon src={showLessIconSvg} alt={`Hide transactions for ${merchantName}`} />
-  );
+  const toggleLabelText = merchant.showTransactions
+    ? `Hide transactions for ${merchantName}`
+    : `Show transactions for ${merchantName}`;
 
-  const showMoreIcon = (
-    <StyledToggleIcon src={showMoreIconSvg} alt={`Show transactions for ${merchantName}`} />
-  );
-
-  // TODO: Figure out how to use styled components with react-image
-  const merchantLogo = (
-    <Img
-      src={[iconUrl, cleoCoin]}
-      loader={
-        <Img
-          src={loaderGif}
-          style={{
-            width: '55px',
-            height: '55px',
-            padding: '7px',
-            marginRight: '10px',
-            borderRadius: '50%',
-            alignSelf: 'center',
-          }}
-        />
-      }
-      alt={`${merchantName} logo`}
-      style={{
-        width: '55px',
-        height: '55px',
-        padding: '7px',
-        marginRight: '10px',
-        borderRadius: '50%',
-        alignSelf: 'center',
-      }}
-    />
-  );
-
-  const merchantNameAndTransactions = (
-    <StyledMerchantNameAndTransactionsCount>
-      <h2>{merchantName}</h2>
-      <p>{transactions.length} transactions</p>
-    </StyledMerchantNameAndTransactionsCount>
-  );
-
-  // TODO: Pass in a prop instead of having separate variables
   const removeButton = (
     <StyledButton
       onClick={() => handleUpdateMerchant('remove')}
@@ -114,39 +70,37 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
     </StyledButton>
   );
 
-  const toggleLabelText = merchant.showTransactions
-    ? `Hide transactions for ${merchantName}`
-    : `Show transactions for ${merchantName}`;
-
   return (
-    <StyledUnorderedList>
-      <li>
-        {/* This container is clickable, to allow the user to toggle show/hide transactions.
-          Used a div to enable the onKeyPress attribute, and aria attributes for screenreaders */}
-        <div
-          role="button"
-          tabIndex={0}
-          onKeyPress={handleKeyboardToggle}
-          onClick={handleToggleTransactions}
-          aria-label={toggleLabelText}
-          aria-expanded={merchant.showTransactions}
-        >
-          <StyledMerchant>
-            {merchantLogo}
-            {merchantNameAndTransactions}
-            {/* showTransactions render would be better as a ternary operator but this 
-        (strangely) results in inconsistent rendering. For some reason this works. */}
-            {merchant.showTransactions && showLessIcon}
-            {!merchant.showTransactions && showMoreIcon}
-          </StyledMerchant>
-          {merchant.showTransactions && (
-            <TransactionsList merchantName={merchant.name} transactions={transactions} />
-          )}
-        </div>
-        {/* Button element feels semantially correct (as it's not linking outwards), 
+    <StyledListItem>
+      {/* This div is clickable, to allow the user to toggle show/hide transactions.
+          The div enables us to use the onKeyPress attribute for keyboard navigation, 
+          and aria attributes for screenreaders */}
+      <div
+        role="button"
+        tabIndex={0}
+        onKeyPress={handleKeyboardToggle}
+        onClick={handleToggleTransactions}
+        aria-label={merchant.name}
+        aria-expanded={merchant.showTransactions}
+      >
+        <StyledMerchant>
+          <MerchantLogo iconUrl={iconUrl} merchantName={merchant.name} />
+          <StyledMerchantNameAndTransactionsCount>
+            <h2>{merchantName}</h2>
+            <p>{transactions.length} transactions</p>
+          </StyledMerchantNameAndTransactionsCount>
+          <StyledToggleIcon
+            src={merchant.showTransactions ? showLessIconSvg : showMoreIconSvg}
+            alt={toggleLabelText}
+          />
+        </StyledMerchant>
+        {merchant.showTransactions && merchant.transactions.length > 0 && (
+          <TransactionsList merchantName={merchant.name} transactions={transactions} />
+        )}
+      </div>
+      {/* Button element feels semantically correct (as it's not linking outwards), 
           but is styled as a link to not dominate visual hierarchy when section collapsed */}
-        {isBill ? removeButton : addButton}
-      </li>
-    </StyledUnorderedList>
+      {isBill ? removeButton : addButton}
+    </StyledListItem>
   );
 };

@@ -71,25 +71,32 @@ App is scoring 100% for accessibility for automated checks with AXE and Lighthou
 
 - [x] Screen reader – Works with a screen reader with meaningful focus order, heading tags, image descriptions & hidden labels
 
+(I did a quick test with VoiceOver, but I'm not proficient enough with the tool to audit well. It sort of works - the content reads reasonably, but it could be better. Would love tips on how to improve this.)
+
 - [x] Magnification – Can zoom up to 400% (or down to mobile size 320px) without losing content or functionality
 
 ### To Do List
 
-Here's a list of things I would have done if I had more time:
+Here's a list of things I would have done if I had more time (not in any order):
 
-- [ ] Finish writing the tests
-- [ ] Do the TODOs I've written in code
+- [ ] Finish writing the tests / split them up where appropriate
 - [ ] Give some kind of visual confirmation to users when merchants have been updated
+- [ ] Better error handling for failed merchant updates
 - [ ] Display merchants in some kind of order!
+- [ ] Better handling for merchants with zero transactions (but need to understand use case)
+- [ ] Prettier loading state, e.g. fake / blurry Merchants (this probably has a proper name!)
 - [ ] Make use of Categories information from the API
 - [ ] Use Redux Sagas
 - [ ] Dockerise - to standardise environment for installation and running, and for simpler deployment
 
 ### Things I'd like to discuss with a more senior engineer
 
-- Best practices for capturing API request states in Redux
-- Best practices for accessibility, e.g. hidden elements, use of aria-label
-- Best practices for styled-components, e.g. architecture and naming, use of CSS variables
+- Best practices for capturing API request states in Redux, how to integrate Saga (haven't yet tried but interested to hear what it offers)
+- Best practices for accessibility, e.g. hidden elements, use of aria-labels, how to audit with a screenreader
+- Best practices for / idiomatic use of styled-components, e.g. architecture, naming, use of CSS variables
+- How best to use Mock Service Worker, or what the alternatives might be
+- How to make it more beautiful / fun, e.g. subtle animations, use of colour / imagery etc.
+- Any other pointers to make my code better :)
 
 ### Design Evolution
 

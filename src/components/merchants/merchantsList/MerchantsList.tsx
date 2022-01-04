@@ -8,6 +8,7 @@ import {
   StyledEmptyContainerMessage,
   StyledMerchantsContainer,
   StyledTab,
+  StyledUnorderedList,
 } from './MerchantsList.styles';
 
 export const MerchantsList: React.FC = () => {
@@ -71,11 +72,13 @@ export const MerchantsList: React.FC = () => {
         {merchantsStatus === 'loading' && loadingMessage}
         {merchantsStatus === 'failed' && errorMessage}
         {merchantsStatus === 'succeeded' && filteredMerchants.length === 0 && noMerchantsMessage}
-        {merchantsStatus === 'succeeded' &&
-          filteredMerchants.length > 0 &&
-          filteredMerchants.map((merchant: MerchantType) => {
-            return <Merchant merchant={merchant} key={merchant.id} />;
-          })}
+        {merchantsStatus === 'succeeded' && filteredMerchants.length > 0 && (
+          <StyledUnorderedList>
+            {filteredMerchants.map((merchant: MerchantType) => {
+              return <Merchant merchant={merchant} key={merchant.id} />;
+            })}
+          </StyledUnorderedList>
+        )}
       </StyledMerchantsContainer>
     </main>
   );

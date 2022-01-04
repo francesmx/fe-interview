@@ -2,18 +2,12 @@ import styled from 'styled-components';
 import eyesCursor from '../../../assets/eyes-cursor.svg';
 import { StyleConstants } from '../../../shared/utils/constants';
 
-export const StyledUnorderedList = styled.ul`
+export const StyledListItem = styled.li`
   border: dashed 1px gray;
   border-radius: 10px;
   padding: 0px;
   margin: 0px;
   margin-bottom: 20px;
-`;
-
-// not used
-export const StyledClickableMerchant = styled.div`
-  display: flex;
-  flex-direction: column;
 `;
 
 export const StyledMerchant = styled.div`
