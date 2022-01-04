@@ -1,17 +1,21 @@
-.listContainer {
+import styled from 'styled-components';
+import eyesCursor from '../../../assets/eyes-cursor.svg';
+
+export const StyledUnorderedList = styled.ul`
   border: dashed 1px gray;
   border-radius: 10px;
   padding: 0px;
   margin: 0px;
   margin-bottom: 20px;
-}
+`;
 
-.merchantAndTransactionsContainer {
+// not used
+export const StyledClickableMerchant = styled.div`
   display: flex;
   flex-direction: column;
-}
+`;
 
-.merchantContainer {
+export const StyledMerchant = styled.div`
   display: flex;
   padding: 10px;
   padding-bottom: 2px;
@@ -20,40 +24,37 @@
   color: black;
   border: none;
   border-radius: 10px;
-  cursor: url('../../../assets/eyes-cursor.svg') 5 12, auto;
-}
+  cursor: url(${eyesCursor}) 5 12, auto;
+`;
 
-.transactionsToggleIcon {
+export const StyledToggleIcon = styled.img`
   width: 20px;
   height: 20px;
   margin: 10px;
   align-self: center;
-}
+`;
 
-.merchantNameAndTransactions {
+export const StyledMerchantNameAndTransactionsCount = styled.div`
   width: 330px;
   display: flex;
   flex-direction: column;
   align-self: center;
-}
 
-.merchantLogo {
-  width: 55px;
-  height: 55px;
-  padding: 7px;
-  margin-right: 10px;
-  border-radius: 50%;
-  align-self: center;
-}
+  h2 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 0px;
+    margin: 0px;
+  }
 
-.merchantName {
-  font-size: 1.2rem;
-  font-weight: bold;
-  padding: 0px;
-  margin: 0px;
-}
+  p {
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+  }
+`;
 
-.merchantButton {
+export const StyledButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -67,10 +68,10 @@
   margin-left: 66px;
   margin-bottom: 10px;
   border: none;
-  cursor: url('../../../assets/eyes-cursor.svg') 5 12, auto;
+  cursor: url(${eyesCursor}) 5 12, auto;
   text-decoration: underline;
-}
 
-.merchantButton:hover {
-  opacity: 0.66;
-}
+  &:hover {
+    opacity: 0.66;
+  }
+`;

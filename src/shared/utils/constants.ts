@@ -1,7 +1,10 @@
 export const StyleConstants = {
-  colors: {
-    blue: '#0815FF',
-    yellow: '#F7BF31',
+  COLOURS: {
+    background: '#21248d',
+    unselectedTab: '#ffe36d',
+    linkText: '#341cff',
+    black: 'black',
+    white: 'white',
   },
 };
 

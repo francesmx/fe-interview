@@ -77,17 +77,19 @@ App is scoring 100% for accessibility for automated checks with AXE and Lighthou
 
 Here's a list of things I would have done if I had more time:
 
-- [] Dockerise - to standardise environment for installation and running, and for simpler deployment
-- [] Use Styled Components
-- [] Use Redux Sagas
-- [] Make use of Categories information from the API
-- [] Implement a snackbar to confirm when merchants have been updated
-- [] Display merchants in some kind of order!
+- [ ] Finish writing the tests
+- [ ] Do the TODOs I've written in code
+- [ ] Give some kind of visual confirmation to users when merchants have been updated
+- [ ] Display merchants in some kind of order!
+- [ ] Make use of Categories information from the API
+- [ ] Use Redux Sagas
+- [ ] Dockerise - to standardise environment for installation and running, and for simpler deployment
 
 ### Things I'd like to discuss with a more senior engineer
 
 - Best practices for capturing API request states in Redux
 - Best practices for accessibility, e.g. hidden elements, use of aria-label
+- Best practices for styled-components, e.g. architecture and naming, use of CSS variables
 
 ### Design Evolution
 

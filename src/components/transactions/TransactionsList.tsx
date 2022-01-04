@@ -1,5 +1,5 @@
-import './Transactions.css';
 import { TransactionType } from '../../shared/types';
+import { StyledTransactionsContainer, StyleTransactionsTable } from './Transactions.styles';
 import { TransactionRow } from './TransactionsRow';
 
 interface TransactionsProps {
@@ -14,8 +14,8 @@ export const TransactionsList: React.FC<TransactionsProps> = ({ merchantName, tr
   });
 
   return (
-    <div className="transactionsContainer">
-      <table className="transactionsTable" aria-label={`Transactions for ${merchantName}`}>
+    <StyledTransactionsContainer>
+      <StyleTransactionsTable aria-label={`Transactions for ${merchantName}`}>
         <thead className="screenreader-only">
           <tr>
             <th style={{ textAlign: 'left' }}>Date</th>
@@ -27,7 +27,7 @@ export const TransactionsList: React.FC<TransactionsProps> = ({ merchantName, tr
             <TransactionRow transaction={transaction} key={transaction.id} />
           ))}
         </tbody>
-      </table>
-    </div>
+      </StyleTransactionsTable>
+    </StyledTransactionsContainer>
   );
 };

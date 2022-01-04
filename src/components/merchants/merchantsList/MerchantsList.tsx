@@ -1,10 +1,14 @@
-import './MerchantsList.css';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../shared/hooks';
 import { selectMerchants, selectMerchantsError, selectMerchantsStatus } from '../merchantsSlice';
 import { Merchant } from '../merchant/Merchant';
 import { MerchantType } from '../../../shared/types';
 import { fetchMerchants } from '../merchantsThunks';
+import {
+  StyledEmptyContainerMessage,
+  StyledMerchantsContainer,
+  StyledTab,
+} from './MerchantsList.styles';
 
 export const MerchantsList: React.FC = () => {
   const merchants = useAppSelector(selectMerchants);
@@ -21,34 +25,36 @@ export const MerchantsList: React.FC = () => {
   }, [merchantsStatus, dispatch]);
 
   const tabBills = (
-    <button
-      className={`tab ${viewBills ? 'selectedTab' : ''}`}
+    <StyledTab
+      selected={viewBills ? true : false}
       onClick={() => setViewBills(true)}
       disabled={viewBills}
     >
       Bills
-    </button>
+    </StyledTab>
   );
 
   const tabPotentialBills = (
-    <button
-      className={`tab ${!viewBills ? 'selectedTab' : ''}`}
+    <StyledTab
+      selected={viewBills ? false : true}
       onClick={() => setViewBills(false)}
       disabled={!viewBills}
     >
       Potential Bills
-    </button>
+    </StyledTab>
   );
 
-  const loadingMessage = <div className="emptyState">Loading...</div>;
+  const loadingMessage = <StyledEmptyContainerMessage>Loading...</StyledEmptyContainerMessage>;
 
   const errorMessage = (
-    <div className="emptyState">
+    <StyledEmptyContainerMessage>
       Something went wrong when trying to retrieve merchants.<div>{merchantsError}</div>
-    </div>
+    </StyledEmptyContainerMessage>
   );
 
-  const noMerchantsMessage = <div className="emptyState">No merchants have been found.</div>;
+  const noMerchantsMessage = (
+    <StyledEmptyContainerMessage>No merchants have been found.</StyledEmptyContainerMessage>
+  );
 
   const filteredMerchants = merchants.filter((merchant: MerchantType) =>
     viewBills ? merchant?.isBill : !merchant?.isBill
@@ -56,11 +62,11 @@ export const MerchantsList: React.FC = () => {
 
   return (
     <main>
-      <nav className="tabs">
+      <nav>
         {tabBills}
         {tabPotentialBills}
       </nav>
-      <section className="container">
+      <StyledMerchantsContainer>
         <h1 className="screenreader-only">{viewBills ? 'Bills' : 'Potential Bills'}</h1>
         {merchantsStatus === 'loading' && loadingMessage}
         {merchantsStatus === 'failed' && errorMessage}
@@ -70,7 +76,7 @@ export const MerchantsList: React.FC = () => {
           filteredMerchants.map((merchant: MerchantType) => {
             return <Merchant merchant={merchant} key={merchant.id} />;
           })}
-      </section>
+      </StyledMerchantsContainer>
     </main>
   );
 };

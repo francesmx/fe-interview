@@ -1,4 +1,3 @@
-import './Merchant.css';
 import { KeyboardEvent } from 'react';
 import { Img } from 'react-image';
 import showMoreIconSvg from '../../../assets/show-more-icon.svg';
@@ -10,6 +9,13 @@ import { MerchantType } from '../../../shared/types';
 import { addBill, removeBill } from '../merchantsThunks';
 import { TransactionsList } from '../../transactions/TransactionsList';
 import { addBillStatus, removeBillStatus, toggleShowTransactions } from '../merchantsSlice';
+import {
+  StyledButton,
+  StyledUnorderedList,
+  StyledMerchant,
+  StyledMerchantNameAndTransactionsCount,
+  StyledToggleIcon,
+} from './Merchants.styles';
 
 interface MerchantProps {
   merchant: MerchantType;
@@ -42,58 +48,70 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
     }
   };
 
+  // TODO: Pass in a prop instead of having separate variables
   const showLessIcon = (
-    <Img
-      src={showLessIconSvg}
-      alt={`Hide transactions for ${merchantName}`}
-      className="transactionsToggleIcon"
-    />
+    <StyledToggleIcon src={showLessIconSvg} alt={`Hide transactions for ${merchantName}`} />
   );
 
   const showMoreIcon = (
-    <Img
-      src={showMoreIconSvg}
-      alt={`Show transactions for ${merchantName}`}
-      className="transactionsToggleIcon"
-    />
+    <StyledToggleIcon src={showMoreIconSvg} alt={`Show transactions for ${merchantName}`} />
   );
 
+  // TODO: Figure out how to use styled components with react-image
   const merchantLogo = (
     <Img
       src={[iconUrl, cleoCoin]}
-      loader={<Img src={loaderGif} className="merchantLogo" />}
+      loader={
+        <Img
+          src={loaderGif}
+          style={{
+            width: '55px',
+            height: '55px',
+            padding: '7px',
+            marginRight: '10px',
+            borderRadius: '50%',
+            alignSelf: 'center',
+          }}
+        />
+      }
       alt={`${merchantName} logo`}
-      className="merchantLogo"
+      style={{
+        width: '55px',
+        height: '55px',
+        padding: '7px',
+        marginRight: '10px',
+        borderRadius: '50%',
+        alignSelf: 'center',
+      }}
     />
   );
 
   const merchantNameAndTransactions = (
-    <div className="merchantNameAndTransactions">
-      <h2 className="merchantName">{merchantName}</h2>
-      <p style={{ padding: 0, margin: 0, fontSize: '1rem' }}>{transactions.length} transactions</p>
-    </div>
+    <StyledMerchantNameAndTransactionsCount>
+      <h2>{merchantName}</h2>
+      <p>{transactions.length} transactions</p>
+    </StyledMerchantNameAndTransactionsCount>
   );
 
+  // TODO: Pass in a prop instead of having separate variables
   const removeButton = (
-    <button
-      className="merchantButton"
+    <StyledButton
       onClick={() => handleUpdateMerchant('remove')}
       disabled={removeStatus === 'loading'}
       aria-label={`Remove ${merchant.name} as a bill`}
     >
       Remove bill
-    </button>
+    </StyledButton>
   );
 
   const addButton = (
-    <button
-      className="merchantButton"
+    <StyledButton
       onClick={() => handleUpdateMerchant('add')}
       disabled={addStatus === 'loading'}
       aria-label={`Add ${merchant.name} as a bill`}
     >
       Add as bill
-    </button>
+    </StyledButton>
   );
 
   const toggleLabelText = merchant.showTransactions
@@ -101,12 +119,11 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
     : `Show transactions for ${merchantName}`;
 
   return (
-    <ul className="listContainer">
+    <StyledUnorderedList>
       <li>
         {/* This container is clickable, to allow the user to toggle show/hide transactions.
           Used a div to enable the onKeyPress attribute, and aria attributes for screenreaders */}
         <div
-          className="merchantAndTransactionsContainer"
           role="button"
           tabIndex={0}
           onKeyPress={handleKeyboardToggle}
@@ -114,14 +131,14 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
           aria-label={toggleLabelText}
           aria-expanded={merchant.showTransactions}
         >
-          <div className="merchantContainer">
+          <StyledMerchant>
             {merchantLogo}
             {merchantNameAndTransactions}
             {/* showTransactions render would be better as a ternary operator but this 
         (strangely) results in inconsistent rendering. For some reason this works. */}
             {merchant.showTransactions && showLessIcon}
             {!merchant.showTransactions && showMoreIcon}
-          </div>
+          </StyledMerchant>
           {merchant.showTransactions && (
             <TransactionsList merchantName={merchant.name} transactions={transactions} />
           )}
@@ -130,6 +147,6 @@ export const Merchant: React.FC<MerchantProps> = ({ merchant }) => {
           but is styled as a link to not dominate visual hierarchy when section collapsed */}
         {isBill ? removeButton : addButton}
       </li>
-    </ul>
+    </StyledUnorderedList>
   );
 };

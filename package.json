@@ -11,6 +11,7 @@
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
     "axios": "^0.24.0",
+    "babel-plugin-styled-components": "^2.0.2",
     "date-fns": "^2.27.0",
     "json-server": "^0.16.3",
     "msw": "^0.36.3",
@@ -21,6 +22,7 @@
     "react-image": "^4.0.3",
     "react-redux": "^7.2.6",
     "react-scripts": "4.0.1",
+    "styled-components": "^5.3.3",
     "ts-node": "^10.4.0",
     "typescript": "^4.0.3"
   },
@@ -50,5 +52,7 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/styled-components": "^5.1.19"
+  }
 }
