@@ -10,6 +10,7 @@ import {
   StyledTab,
   StyledUnorderedList,
 } from './MerchantsList.styles';
+import loaderGif from '../../../assets/loader.gif';
 
 export const MerchantsList: React.FC = () => {
   const merchants = useAppSelector(selectMerchants);
@@ -45,11 +46,17 @@ export const MerchantsList: React.FC = () => {
     </StyledTab>
   );
 
-  const loadingMessage = <StyledEmptyContainerMessage>Loading...</StyledEmptyContainerMessage>;
+  const loadingMessage = (
+    <StyledEmptyContainerMessage>
+      <img src={loaderGif} alt="Loading..." />
+    </StyledEmptyContainerMessage>
+  );
 
   const errorMessage = (
     <StyledEmptyContainerMessage>
-      Something went wrong when trying to retrieve merchants.<div>{merchantsError}</div>
+      <p>Something went wrong when trying to retrieve merchants.</p>
+      {merchantsError && <p>{merchantsError}</p>}
+      <p>Please refresh the page to try again.</p>
     </StyledEmptyContainerMessage>
   );
 

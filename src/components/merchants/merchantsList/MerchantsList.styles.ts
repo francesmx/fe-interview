@@ -59,6 +59,13 @@ export const StyledEmptyContainerMessage = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  img {
+    display: block;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+  }
 `;
 
 export const StyledUnorderedList = styled.ul`
