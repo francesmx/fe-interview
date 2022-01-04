@@ -5,8 +5,6 @@ import { StyleConstants } from '../../../shared/utils/constants';
 export const StyledListItem = styled.li`
   border: dashed 1px gray;
   border-radius: 10px;
-  padding: 0px;
-  margin: 0px;
   margin-bottom: 20px;
 `;
 
@@ -15,8 +13,6 @@ export const StyledMerchant = styled.div`
   padding: 10px;
   padding-bottom: 2px;
   text-align: left;
-  background: white;
-  color: black;
   border: none;
   border-radius: 10px;
   cursor: url(${eyesCursor}) 5 12, auto;
@@ -38,8 +34,8 @@ export const StyledMerchantNameAndTransactionsCount = styled.div`
   h2 {
     font-size: 1.2rem;
     font-weight: bold;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
   }
 
   p {

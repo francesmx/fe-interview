@@ -41,6 +41,7 @@ export const StyledTab = styled.button<StyledTabProps>`
 
 export const StyledMerchantsContainer = styled.section`
   background: white;
+  color: black;
   max-width: 420px;
   display: flex;
   flex-direction: column;
@@ -52,16 +53,14 @@ export const StyledMerchantsContainer = styled.section`
 `;
 
 export const StyledEmptyContainerMessage = styled.div`
-  background-color: white;
-  color: black;
   padding-bottom: 20px;
   height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 
   img {
-    display: block;
     width: 55px;
     height: 55px;
     border-radius: 50%;

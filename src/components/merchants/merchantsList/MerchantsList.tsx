@@ -49,6 +49,7 @@ export const MerchantsList: React.FC = () => {
   const loadingMessage = (
     <StyledEmptyContainerMessage>
       <img src={loaderGif} alt="Loading..." />
+      <p>Loading...</p>
     </StyledEmptyContainerMessage>
   );
 

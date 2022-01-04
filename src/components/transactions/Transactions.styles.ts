@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import eyesCursor from '../../assets/eyes-cursor.svg';
 
 export const StyledTransactionsContainer = styled.div`
-  color: black;
   display: flex;
   flex-direction: column;
   cursor: url(${eyesCursor}) 5 12, auto;
