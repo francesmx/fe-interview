@@ -16,8 +16,14 @@ export const GlobalStyles = createGlobalStyle`
     text-align: center;
     min-height: 100vh;
     color: white;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+      'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     line-height: 1.2;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    cursor: url('./assets/pizza-cursor.svg') 2 2, auto;
     background-color: ${StyleConstants.COLOURS.cleoBlue};
     background-image: url(${tentacleImage});
     background-repeat: no-repeat;
@@ -25,6 +31,10 @@ export const GlobalStyles = createGlobalStyle`
     background-position: -100px 100px;
     animation-name: ${tentacleAnimation};
     animation-duration: 4s;
+  }
+
+  a {
+    cursor: url('./assets/eyes-cursor.svg') 5 12, auto;
   }
 
   *,
