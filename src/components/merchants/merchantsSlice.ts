@@ -7,6 +7,7 @@ type apiCallStatus = {
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | undefined;
 };
+
 type MerchantsState = {
   merchants: [] | Array<MerchantType>;
   fetch: apiCallStatus;
