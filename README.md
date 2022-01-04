@@ -81,7 +81,7 @@ Here's a list of things I would have done if I had more time (not in any order):
 
 - [ ] Finish writing the tests / split them up where appropriate
 - [ ] Better experience for screen reader users
-- [ ] Give some kind of visual confirmation to users when merchants have been updated
+- [ ] Give some kind of confirmation to users when merchants have been updated
 - [ ] Better error handling for failed merchant updates
 - [ ] Display merchants in some kind of order!
 - [ ] Better handling for merchants with zero transactions (but need to understand use case)
